@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Tentang Saya – Wafid</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class' };
+  </script>
+</head>
+<body class="bg-white text-gray-900 dark:bg-gray-900 dark:text-white font-sans min-h-screen flex flex-col">
+
+  <!-- HEADER -->
+  <header class="bg-white dark:bg-gray-800 shadow sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto flex items-center justify-between px-4 py-4">
+      <h1 class="text-xl font-bold">WafidAdzka</h1>
+      <nav class="hidden md:flex space-x-4">
+        <a href="index.html">Home</a>
+        <a href="about.html" class="text-blue-400 font-semibold">Tentang</a>
+        <a href="skills.html">Skills</a>
+        <a href="projects.html">Proyek</a>
+        <a href="kampus.html">Kampus</a>
+        <a href="organisasi.html">Organisasi</a>
+        <a href="contact.html">Kontak</a>
+        <button id="toggle-dark">🌓</button>
+      </nav>
+      <button class="md:hidden" id="menu-toggle">☰</button>
+    </div>
+    <div id="mobile-menu" class="md:hidden hidden px-4 pb-4">
+      <a href="index.html" class="block py-1">Home</a>
+      <a href="about.html" class="block py-1">Tentang</a>
+      <a href="skills.html" class="block py-1">Skills</a>
+      <a href="projects.html" class="block py-1">Proyek</a>
+      <a href="kampus.html" class="block py-1">Kampus</a>
+      <a href="organisasi.html" class="block py-1">Organisasi</a>
+      <a href="contact.html" class="block py-1">Kontak</a>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="max-w-5xl mx-auto px-4 py-12 flex-grow">
+    <h2 class="text-3xl font-bold text-yellow-400 mb-6 text-center">Tentang Saya</h2>
+
+    <div class="flex flex-col md:flex-row items-center gap-8 bg-gray-100 dark:bg-gray-800 p-6 rounded-lg shadow-lg">
+      <!-- FOTO -->
+      <img src="assets/foto.jpg" alt="Foto Wafid"
+           class="w-40 h-40 rounded-full object-cover border-4 border-white shadow-md dark:border-gray-600" />
+
+      <!-- DESKRIPSI + BIODATA -->
+      <div class="text-gray-700 dark:text-gray-200 space-y-4">
+        <p>
+          Halo! Saya <strong>Wafid Adzka Haifan Mukhayyar</strong>, mahasiswa semester 6 D4 Teknik Informatika di
+          <a href="https://ulbi.ac.id" class="text-blue-400 hover:underline font-medium" target="_blank">ULBI</a> (Universitas Logistik & Bisnis Internasional), Bandung.
+          Saya memiliki passion dalam Frontend Development, UI/UX, dan software engineering.
+        </p>
+
+        <!-- BIODATA -->
+        <div class="bg-gray-200 dark:bg-gray-700 p-4 rounded-lg shadow-sm">
+          <h3 class="text-lg font-semibold mb-2 text-yellow-400">Biodata Pribadi</h3>
+          <ul class="text-sm space-y-1">
+            <li><strong>Nama:</strong> Wafid Adzka Haifan Mukhayyar</li>
+            <li><strong>Tempat, Tanggal Lahir:</strong> Purwakarta, 21 Mei 2004</li>
+            <li><strong>Jenis Kelamin:</strong> Laki-laki</li>
+            <li><strong>Alamat:</strong> Jl. Budhi VII, Sukaraja, Cicendo, Bandung</li>
+            <li><strong>Agama:</strong> Islam</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-gray-900 text-center text-gray-400 py-4">
+    &copy; 2025 Wafid Adzka.
+  </footer>
+
+  <!-- Script -->
+  <script>
+    document.getElementById('menu-toggle')?.addEventListener('click', () => {
+      document.getElementById('mobile-menu')?.classList.toggle('hidden');
+    });
+
+    document.getElementById('toggle-dark')?.addEventListener('click', () => {
+      document.documentElement.classList.toggle('dark');
+      localStorage.setItem('theme',
+        document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+    });
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const theme = localStorage.getItem('theme');
+      if (theme === 'dark') {
+        document.documentElement.classList.add('dark');
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Organisasi – Wafid</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class' }
+  </script>
+</head>
+<body class="bg-white text-gray-900 dark:bg-gray-900 dark:text-white font-sans flex flex-col min-h-screen">
+
+  <!-- HEADER -->
+  <header class="bg-white dark:bg-gray-800 shadow sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto flex items-center justify-between px-4 py-4">
+      <h1 class="text-xl font-bold">WafidAdzka</h1>
+      <nav class="hidden md:flex space-x-4">
+        <a href="index.html">Home</a>
+        <a href="about.html">Tentang</a>
+        <a href="skills.html">Skills</a>
+        <a href="projects.html">Proyek</a>
+        <a href="kampus.html">Kampus</a>
+        <a href="organisasi.html" class="text-blue-400 font-semibold">Organisasi</a>
+        <a href="contact.html">Kontak</a>
+        <button id="toggle-dark">🌓</button>
+      </nav>
+      <button class="md:hidden" id="menu-toggle">☰</button>
+    </div>
+    <div id="mobile-menu" class="md:hidden hidden px-4 pb-4">
+      <a href="index.html" class="block py-1">Home</a>
+      <a href="about.html" class="block py-1">Tentang</a>
+      <a href="skills.html" class="block py-1">Skills</a>
+      <a href="projects.html" class="block py-1">Proyek</a>
+      <a href="kampus.html" class="block py-1">Kampus</a>
+      <a href="organisasi.html" class="block py-1">Organisasi</a>
+      <a href="contact.html" class="block py-1">Kontak</a>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="max-w-4xl mx-auto px-4 py-12 flex-grow">
+    <h2 class="text-3xl font-bold text-yellow-400 mb-8">Pengalaman Organisasi</h2>
+
+    <!-- Media Desain -->
+    <div class="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg shadow mb-6">
+      <h3 class="text-xl font-semibold mb-2">Media Desain – UKM Kradio ULBI (2024–2025)</h3>
+      <p class="text-gray-700 dark:text-gray-300">
+        Bertugas dalam pembuatan desain visual seperti poster, konten sosial media, dan branding event untuk UKM Kradio.
+        Peran ini memperkuat keahlian visual branding, desain UI/UX dasar, serta koordinasi produksi konten digital dalam tim.
+      </p>
+      <a href="https://www.instagram.com/p/C4U2Nt4Ppzh/?img_index=3&igsh=OTdvcGo3czA2Y2Nr"
+         target="_blank"
+         class="inline-flex items-center gap-2 mt-3 text-blue-400 hover:text-yellow-300 transition">
+        <img src="https://img.icons8.com/ios-filled/20/instagram-new.png" alt="Instagram Icon" />
+        Lihat Dokumentasi di Instagram
+      </a>
+    </div>
+
+    <!-- General Manager -->
+    <div class="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg shadow">
+      <h3 class="text-xl font-semibold mb-2">General Manager – UKM Kradio ULBI (2025–Sekarang)</h3>
+      <p class="text-gray-700 dark:text-gray-300">
+        Memimpin seluruh struktur organisasi, bertanggung jawab dalam penyusunan program kerja, mengatur SDM, serta mewakili UKM secara resmi.
+        Fokus pada kolaborasi lintas organisasi kampus, manajemen acara besar, dan pengembangan potensi anggota.
+      </p>
+      <a href="https://www.instagram.com/p/DJtC5mLhEMc/?img_index=1&igsh=MXJ5eGx4OGUyY3dzdA=="
+         target="_blank"
+         class="inline-flex items-center gap-2 mt-3 text-blue-400 hover:text-yellow-300 transition">
+        <img src="https://img.icons8.com/ios-filled/20/instagram-new.png" alt="Instagram Icon" />
+        Lihat Dokumentasi di Instagram
+      </a>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-gray-900 text-center text-gray-400 py-4">
+    &copy; 2025 Wafid Adzka.
+  </footer>
+
+  <!-- SCRIPT DARK MODE -->
+  <script>
+    const toggleBtn = document.getElementById('toggle-dark');
+    toggleBtn?.addEventListener('click', () => {
+      document.documentElement.classList.toggle('dark');
+      localStorage.setItem('theme',
+        document.documentElement.classList.contains('dark') ? 'dark' : 'light'
+      );
+    });
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const saved = localStorage.getItem('theme');
+      if (saved === 'dark') {
+        document.documentElement.classList.add('dark');
+      }
+    });
+
+    document.getElementById('menu-toggle')?.addEventListener('click', () => {
+      document.getElementById('mobile-menu')?.classList.toggle('hidden');
+    });
+  </script>
+</body>
+</html>

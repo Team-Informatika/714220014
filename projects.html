@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Proyek – Wafid</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class' }
+  </script>
+</head>
+<body class="bg-white text-gray-900 dark:bg-gray-900 dark:text-white font-sans min-h-screen flex flex-col">
+
+  <!-- HEADER -->
+  <header class="bg-white dark:bg-gray-800 shadow sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto flex items-center justify-between px-4 py-4">
+      <h1 class="text-xl font-bold">WafidAdzka</h1>
+      <nav class="hidden md:flex space-x-4">
+        <a href="index.html">Home</a>
+        <a href="about.html">Tentang</a>
+        <a href="skills.html">Skills</a>
+        <a href="projects.html" class="text-blue-400 font-semibold">Proyek</a>
+        <a href="kampus.html">Kampus</a>
+        <a href="organisasi.html">Organisasi</a>
+        <a href="contact.html">Kontak</a>
+        <button id="toggle-dark">🌓</button>
+      </nav>
+      <button class="md:hidden" id="menu-toggle">☰</button>
+    </div>
+    <div id="mobile-menu" class="md:hidden hidden px-4 pb-4">
+      <a href="index.html" class="block py-1">Home</a>
+      <a href="about.html" class="block py-1">Tentang</a>
+      <a href="skills.html" class="block py-1">Skills</a>
+      <a href="projects.html" class="block py-1">Proyek</a>
+      <a href="kampus.html" class="block py-1">Kampus</a>
+      <a href="organisasi.html" class="block py-1">Organisasi</a>
+      <a href="contact.html" class="block py-1">Kontak</a>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="max-w-6xl mx-auto px-4 py-16 flex-grow">
+    <h2 class="text-3xl font-bold mb-10 text-yellow-400 text-center">Proyek Portofolio</h2>
+
+    <div class="grid gap-12 sm:grid-cols-2 lg:grid-cols-2">
+      <!-- Proyek 1 -->
+      <div>
+        <img src="assets/SimpanPinjam.png" class="w-full rounded-lg shadow-lg" alt="Simpan Pinjam">
+        <h3 class="text-2xl font-semibold mt-4">Simpan Pinjam (2022–2023)</h3>
+        <p class="text-gray-700 dark:text-gray-300 mt-2">
+          Sistem koperasi digital yang menyediakan fitur simpanan, pinjaman, serta laporan keuangan real-time untuk pengelolaan anggota dan dana koperasi.
+        </p>
+        <a href="https://github.com/wafidadzka2105/Proyek_1_AplikasiSimpanPinjam" class="text-blue-400 hover:underline block mt-2">🔗 GitHub</a>
+      </div>
+
+      <!-- Proyek 2 -->
+      <div>
+        <img src="assets/WebWisata.png" class="w-full rounded-lg shadow-lg" alt="Web Wisata Interaktif">
+        <h3 class="text-2xl font-semibold mt-4">Web Wisata Interaktif (2023–2024)</h3>
+        <p class="text-gray-700 dark:text-gray-300 mt-2">
+          Platform pencarian lokasi wisata, galeri destinasi, ulasan pengunjung, dan sistem booking tiket yang mempermudah wisatawan menjelajahi Indonesia.
+        </p>
+      </div>
+
+      <!-- Proyek 3 -->
+      <div>
+        <img src="assets/WebPelajaran.png" class="w-full rounded-lg shadow-lg" alt="Web Pelajaran">
+        <h3 class="text-2xl font-semibold mt-4">Web Pelajaran (2023–2024)</h3>
+        <p class="text-gray-700 dark:text-gray-300 mt-2">
+          Website edukasi berbasis web yang berisi materi interaktif, soal latihan, dan kuis untuk mendukung pembelajaran daring di berbagai jenjang.
+        </p>
+        <a href="https://wafidadzka2105.github.io/WebPelajaran/" class="text-blue-400 hover:underline block mt-2">🔗 GitHub</a>
+      </div>
+
+      <!-- Proyek 4 -->
+      <div>
+        <img src="assets/TokoMAs.png" class="w-full rounded-lg shadow-lg" alt="Toko Emas">
+        <h3 class="text-2xl font-semibold mt-4">Toko Emas (2024–2025)</h3>
+        <p class="text-gray-700 dark:text-gray-300 mt-2">
+          Website katalog emas dengan update harga real-time, fitur keranjang dan checkout online, serta integrasi pembayaran sederhana berbasis web.
+        </p>
+        <a href="https://proyek3webtokoemas.github.io/FEPROYEK1/" class="text-blue-400 hover:underline block mt-2">🔗 GitHub</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-gray-900 text-center text-gray-400 py-4 mt-10">
+    &copy; 2025 Wafid Adzka.
+  </footer>
+
+  <!-- SCRIPT -->
+  <script>
+    document.getElementById('menu-toggle').addEventListener('click', () => {
+      document.getElementById('mobile-menu').classList.toggle('hidden');
+    });
+
+    document.getElementById('toggle-dark').addEventListener('click', () => {
+      document.documentElement.classList.toggle('dark');
+    });
+  </script>
+</body>
+</html>

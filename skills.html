@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Skills – Wafid</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class' };
+  </script>
+</head>
+<body class="bg-white text-gray-900 dark:bg-gray-900 dark:text-white font-sans min-h-screen flex flex-col">
+
+  <!-- HEADER -->
+  <header class="bg-white dark:bg-gray-800 shadow sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto flex items-center justify-between px-4 py-4">
+      <h1 class="text-xl font-bold">WafidAdzka</h1>
+      <nav class="hidden md:flex space-x-4">
+        <a href="index.html">Home</a>
+        <a href="about.html">Tentang</a>
+        <a href="skills.html" class="text-blue-400 font-semibold">Skills</a>
+        <a href="projects.html">Proyek</a>
+        <a href="kampus.html">Kampus</a>
+        <a href="organisasi.html">Organisasi</a>
+        <a href="contact.html">Kontak</a>
+        <button id="toggle-dark">🌓</button>
+      </nav>
+      <button class="md:hidden" id="menu-toggle">☰</button>
+    </div>
+    <div id="mobile-menu" class="md:hidden hidden px-4 pb-4">
+      <a href="index.html" class="block py-1">Home</a>
+      <a href="about.html" class="block py-1">Tentang</a>
+      <a href="skills.html" class="block py-1">Skills</a>
+      <a href="projects.html" class="block py-1">Proyek</a>
+      <a href="kampus.html" class="block py-1">Kampus</a>
+      <a href="organisasi.html" class="block py-1">Organisasi</a>
+      <a href="contact.html" class="block py-1">Kontak</a>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="max-w-6xl mx-auto px-4 py-12 flex-grow">
+    <h2 class="text-3xl font-bold text-yellow-400 mb-10 text-center">Keahlian Saya</h2>
+
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-8 text-center">
+      <!-- Skill Item Template -->
+      <div>
+        <img src="https://img.icons8.com/color/96/html-5--v1.png" alt="HTML" class="mx-auto w-16 h-16" />
+        <p class="mt-2">HTML5</p>
+      </div>
+
+      <div>
+        <img src="https://img.icons8.com/color/96/css3.png" alt="CSS" class="mx-auto w-16 h-16" />
+        <p class="mt-2">CSS3</p>
+      </div>
+
+      <div>
+        <img src="https://img.icons8.com/color/96/javascript--v1.png" alt="JavaScript" class="mx-auto w-16 h-16" />
+        <p class="mt-2">JavaScript</p>
+      </div>
+
+      <div>
+        <img src="https://img.icons8.com/fluency/96/tailwind_css.png" alt="Tailwind" class="mx-auto w-16 h-16" />
+        <p class="mt-2">Tailwind CSS</p>
+      </div>
+
+      <div>
+        <img src="https://img.icons8.com/color/96/react-native.png" alt="React" class="mx-auto w-16 h-16" />
+        <p class="mt-2">React.js</p>
+      </div>
+
+      <div>
+        <img src="https://img.icons8.com/color/96/vue-js.png" alt="Vue.js" class="mx-auto w-16 h-16" />
+        <p class="mt-2">Vue.js</p>
+      </div>
+
+      <div>
+        <img src="https://img.icons8.com/color/96/git.png" alt="Git" class="mx-auto w-16 h-16" />
+        <p class="mt-2">Git</p>
+      </div>
+
+      <div>
+        <img src="https://img.icons8.com/ios-filled/100/ffffff/github.png" alt="GitHub" class="mx-auto w-16 h-16 bg-black rounded-full p-2" />
+        <p class="mt-2">GitHub</p>
+      </div>
+
+      <div>
+        <img src="https://img.icons8.com/ios-filled/100/4479A1/mysql-logo.png" alt="MySQL" class="mx-auto w-16 h-16" />
+        <p class="mt-2">MySQL</p>
+      </div>
+
+      <div>
+        <img src="https://img.icons8.com/color/96/mongodb.png" alt="MongoDB" class="mx-auto w-16 h-16" />
+        <p class="mt-2">MongoDB</p>
+      </div>
+
+      <div>
+        <img src="https://img.icons8.com/ios-filled/100/cloud-network.png" alt="REST API" class="mx-auto w-16 h-16" />
+        <p class="mt-2">REST API</p>
+      </div>
+
+      <div>
+        <img src="https://img.icons8.com/fluency/96/design.png" alt="UI/UX" class="mx-auto w-16 h-16" />
+        <p class="mt-2">UI/UX</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-gray-900 text-center text-gray-400 py-4">
+    &copy; 2025 Wafid Adzka.
+  </footer>
+
+  <!-- SCRIPT -->
+  <script>
+    document.getElementById('menu-toggle').addEventListener('click', () => {
+      document.getElementById('mobile-menu').classList.toggle('hidden');
+    });
+
+    document.getElementById('toggle-dark').addEventListener('click', () => {
+      document.documentElement.classList.toggle('dark');
+    });
+  </script>
+</body>
+</html>

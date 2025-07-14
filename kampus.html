@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="id" class="">
+<head>
+  <meta charset="UTF-8" />
+  <title>Kampus – Wafid</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class' }
+  </script>
+</head>
+<body class="bg-white text-gray-900 dark:bg-gray-900 dark:text-white font-sans flex flex-col min-h-screen">
+
+  <!-- HEADER -->
+  <header class="bg-white dark:bg-gray-800 shadow sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto flex items-center justify-between px-4 py-4">
+      <h1 class="text-xl font-bold">WafidAdzka</h1>
+      <nav class="hidden md:flex space-x-4">
+        <a href="index.html">Home</a>
+        <a href="about.html">Tentang</a>
+        <a href="skills.html">Skills</a>
+        <a href="projects.html">Proyek</a>
+        <a href="kampus.html" class="text-blue-400 font-semibold">Kampus</a>
+        <a href="organisasi.html">Organisasi</a>
+        <a href="contact.html">Kontak</a>
+        <button id="toggle-dark">🌓</button>
+      </nav>
+      <button class="md:hidden" id="menu-toggle">☰</button>
+    </div>
+    <div id="mobile-menu" class="md:hidden hidden px-4 pb-4">
+      <a href="index.html" class="block py-1">Home</a>
+      <a href="about.html" class="block py-1">Tentang</a>
+      <a href="skills.html" class="block py-1">Skills</a>
+      <a href="projects.html" class="block py-1">Proyek</a>
+      <a href="kampus.html" class="block py-1">Kampus</a>
+      <a href="organisasi.html" class="block py-1">Organisasi</a>
+      <a href="contact.html" class="block py-1">Kontak</a>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="max-w-4xl mx-auto px-4 py-12 flex-grow">
+    <h2 class="text-3xl font-bold text-yellow-400 mb-6">Informasi Kampus</h2>
+    <p class="mb-4 text-gray-700 dark:text-gray-300 leading-relaxed">
+      Saya adalah mahasiswa <a href="https://ulbi.ac.id" target="_blank" class="text-blue-400 hover:underline font-semibold">Universitas Logistik & Bisnis Internasional (ULBI)</a>,
+      kampus BUMN milik PT Pos Indonesia yang berfokus pada logistik, bisnis, dan teknologi.
+    </p>
+    <p class="mb-4 text-gray-700 dark:text-gray-300">
+      Saat ini saya menempuh pendidikan di <a href="https://if.ulbi.ac.id/" target="_blank" class="text-blue-400 hover:underline font-semibold">Program Studi D4 Teknik Informatika</a>
+      semester 6 dengan fokus pada pengembangan software, UI/UX, dan teknologi industri digital.
+    </p>
+
+    <div class="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg shadow mt-6 text-gray-800 dark:text-gray-200">
+      <ul class="space-y-2">
+        <li><strong>Nama Kampus:</strong> Universitas Logistik & Bisnis Internasional (ULBI)</li>
+        <li><strong>Program Studi:</strong> D4 Teknik Informatika</li>
+        <li><strong>Semester:</strong> 6</li>
+        <li><strong>IPK:</strong> 3.28 / 4.00</li>
+        <li><strong>Alamat:</strong> Jl. Sariasih No.64, Sarijadi, Bandung</li>
+        <li><strong>Email Kampus:</strong> info@ulbi.ac.id</li>
+        <li><strong>Telepon:</strong> +62 813-1111-0194</li>
+      </ul>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-gray-900 text-center text-gray-400 py-4">
+    &copy; 2025 Wafid Adzka.
+  </footer>
+
+  <!-- SCRIPT DARK MODE -->
+  <script>
+    const toggleBtn = document.getElementById('toggle-dark');
+    toggleBtn?.addEventListener('click', () => {
+      document.documentElement.classList.toggle('dark');
+      localStorage.setItem('theme',
+        document.documentElement.classList.contains('dark') ? 'dark' : 'light'
+      );
+    });
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const saved = localStorage.getItem('theme');
+      if (saved === 'dark') {
+        document.documentElement.classList.add('dark');
+      }
+    });
+
+    document.getElementById('menu-toggle')?.addEventListener('click', () => {
+      document.getElementById('mobile-menu')?.classList.toggle('hidden');
+    });
+  </script>
+</body>
+</html>
