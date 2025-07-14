@@ -40,30 +40,43 @@
 
   <!-- MAIN -->
   <main class="max-w-4xl mx-auto px-4 py-12 flex-grow">
-    <h2 class="text-3xl font-bold text-yellow-400 mb-6">Kontak Saya</h2>
+    <h2 class="text-3xl font-bold text-yellow-400 mb-6">📬 Kontak Saya</h2>
     <ul class="text-lg space-y-3 text-gray-700 dark:text-gray-300">
-      <li><strong>Nama:</strong> Wafid Adzka Haifan Mukhayyar</li>
-      <li><strong>Domisili:</strong> Bandung</li>
-      <li><strong>Email:</strong> <a href="mailto:adzkamukhayyar@gmail.com" class="text-blue-400 hover:underline">adzkamukhayyar@gmail.com</a></li>
-      <li><strong>Telepon/WA:</strong> <a href="https://wa.me/6289551552648" class="text-blue-400 hover:underline">+62 895-5155-2648</a></li>
-      <li><strong>GitHub:</strong> <a href="https://github.com/wafidadzka2105" class="text-blue-400 hover:underline" target="_blank">wafidadzka2105</a></li>
-      <li><strong>Alamat:</strong> Jl. Budhi VII, Sukaraja, Cicendo, Bandung</li>
+      <li><img class="inline w-5 mr-2" src="https://img.icons8.com/ios-filled/50/user.png"/> <strong>Nama:</strong> Wafid Adzka Haifan Mukhayyar</li>
+      <li><img class="inline w-5 mr-2" src="https://img.icons8.com/ios-filled/50/marker.png"/> <strong>Domisili:</strong> Bandung</li>
+      <li><img class="inline w-5 mr-2" src="https://img.icons8.com/ios-filled/50/email.png"/> <strong>Email:</strong> <a href="mailto:adzkamukhayyar@gmail.com" class="text-blue-400 hover:underline">adzkamukhayyar@gmail.com</a></li>
+      <li><img class="inline w-5 mr-2" src="https://img.icons8.com/ios-filled/50/phone.png"/> <strong>Telepon/WA:</strong> <a href="https://wa.me/6289551552648" class="text-blue-400 hover:underline">+62 895-5155-2648</a></li>
+      <li><img class="inline w-5 mr-2" src="https://img.icons8.com/ios-filled/50/github.png"/> <strong>GitHub:</strong> <a href="https://github.com/wafidadzka2105" class="text-blue-400 hover:underline" target="_blank">wafidadzka2105</a></li>
+      <li><img class="inline w-5 mr-2" src="https://img.icons8.com/ios-filled/50/instagram-new.png"/> <strong>Instagram:</strong> <a href="https://www.instagram.com/wafidadzka_/" class="text-blue-400 hover:underline" target="_blank">@wafidadzka_</a></li>
+      <li><img class="inline w-5 mr-2" src="https://img.icons8.com/ios-filled/50/tiktok.png"/> <strong>TikTok:</strong> <a href="https://www.tiktok.com/@wafidadzka" class="text-blue-400 hover:underline" target="_blank">@wafidadzka_</a></li>
+      <li><img class="inline w-5 mr-2" src="https://img.icons8.com/ios-filled/50/twitterx--v1.png"/> <strong>X (Twitter):</strong> <a href="https://x.com/wafidadzka_" class="text-blue-400 hover:underline" target="_blank">@wafidadzka_</a></li>
+      <li><img class="inline w-5 mr-2" src="https://img.icons8.com/ios-filled/50/linkedin.png"/> <strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/WafidAdzka" class="text-blue-400 hover:underline" target="_blank">WafidAdzka</a></li>
+      <li><img class="inline w-5 mr-2" src="https://img.icons8.com/ios-filled/50/address.png"/> <strong>Alamat:</strong> Jl. Budhi VII, Sukaraja, Cicendo, Bandung</li>
     </ul>
   </main>
 
   <!-- FOOTER -->
   <footer class="bg-gray-900 text-center text-gray-400 py-4">
-    &copy; 2025 Wafid Adzka. Dibuat dengan ❤️ dan Tailwind CSS.
+    &copy; 2025 Wafid Adzka.
   </footer>
 
   <!-- SCRIPT -->
   <script>
-    document.getElementById('menu-toggle').addEventListener('click', () => {
-      document.getElementById('mobile-menu').classList.toggle('hidden');
+    document.getElementById('menu-toggle')?.addEventListener('click', () => {
+      document.getElementById('mobile-menu')?.classList.toggle('hidden');
     });
 
-    document.getElementById('toggle-dark').addEventListener('click', () => {
+    document.getElementById('toggle-dark')?.addEventListener('click', () => {
       document.documentElement.classList.toggle('dark');
+      localStorage.setItem('theme',
+        document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+    });
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const theme = localStorage.getItem('theme');
+      if (theme === 'dark') {
+        document.documentElement.classList.add('dark');
+      }
     });
   </script>
 </body>
