@@ -85,6 +85,14 @@
     .cursor::after { content: '|'; margin-left: 2px; color: #f97316; animation: blink 1s steps(1) infinite; }
     @keyframes blink { 50% { opacity: 0; } }
 
+    /* Tombol pemilih latar foto */
+    .photo-pill.active {
+      border-color: #facc15;
+      background: rgba(250,204,21,.2);
+      color: #ca8a04;
+    }
+    .dark .photo-pill.active { color: #fde047; }
+
     @media (prefers-reduced-motion: reduce) {
       .reveal { opacity: 1; transform: none; transition: none; }
       .ring-spin, .animate-blob, .animate-float, .cursor::after { animation: none !important; }
@@ -143,11 +151,31 @@
     <!-- HERO SECTION -->
     <section class="max-w-4xl mx-auto px-4 pt-16 md:pt-24 pb-12 text-center">
 
-      <div class="reveal relative inline-block animate-float mb-8">
+      <!-- Foto profil (klik untuk ganti latar biru / merah) -->
+      <div class="reveal relative inline-block animate-float mb-5">
         <div class="absolute -inset-1.5 rounded-full ring-spin blur-[2px]"></div>
-        <img src="assets/diri.jpg" alt="Foto Wafid"
-             class="relative w-36 h-36 md:w-44 md:h-44 rounded-full object-cover border-4 border-white dark:border-gray-900 shadow-2xl" />
+
+        <button id="photo-toggle" type="button" aria-label="Ganti latar foto"
+                class="relative block w-36 h-36 md:w-44 md:h-44 rounded-full overflow-hidden border-4 border-white dark:border-gray-900 shadow-2xl cursor-pointer">
+          <img id="photo-blue" src="assets/diri-biru.jpg" alt="Foto Wafid latar biru"
+               class="absolute inset-0 w-full h-full object-cover object-top transition-opacity duration-500 opacity-100" />
+          <img id="photo-red" src="assets/diri-merah.jpg" alt="Foto Wafid latar merah"
+               class="absolute inset-0 w-full h-full object-cover object-top transition-opacity duration-500 opacity-0" />
+        </button>
+
         <span class="absolute bottom-2 right-2 w-5 h-5 bg-green-500 border-4 border-white dark:border-gray-900 rounded-full" title="Terbuka untuk peluang"></span>
+      </div>
+
+      <!-- Pemilih latar -->
+      <div class="reveal flex justify-center gap-2 mb-8" role="group" aria-label="Pilih latar foto">
+        <button type="button" data-photo="blue"
+                class="photo-pill inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold border border-gray-300 dark:border-white/20 hover:bg-gray-100 dark:hover:bg-white/10 transition">
+          <span class="w-3 h-3 rounded-full bg-blue-600"></span> Biru
+        </button>
+        <button type="button" data-photo="red"
+                class="photo-pill inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold border border-gray-300 dark:border-white/20 hover:bg-gray-100 dark:hover:bg-white/10 transition">
+          <span class="w-3 h-3 rounded-full bg-red-600"></span> Merah
+        </button>
       </div>
 
       <div class="reveal">
@@ -258,7 +286,7 @@
 
   <!-- FOOTER -->
   <footer class="border-t border-gray-200 dark:border-white/10 bg-white dark:bg-gray-900 text-center text-gray-500 dark:text-gray-400 py-6 text-sm">
-    &copy; 2026 Wafid Adzka. 
+    &copy; 2026 Wafid Adzka.
   </footer>
 
   <!-- SCRIPT -->
@@ -308,6 +336,42 @@
       }
       el.textContent = '';
       tick();
+    })();
+
+    // Ganti latar foto (biru / merah)
+    (function () {
+      const blue = document.getElementById('photo-blue');
+      const red = document.getElementById('photo-red');
+      const toggleBtn = document.getElementById('photo-toggle');
+      const pills = document.querySelectorAll('.photo-pill');
+      if (!blue || !red) return;
+
+      function setPhoto(mode) {
+        const isRed = mode === 'red';
+        blue.classList.toggle('opacity-100', !isRed);
+        blue.classList.toggle('opacity-0', isRed);
+        red.classList.toggle('opacity-100', isRed);
+        red.classList.toggle('opacity-0', !isRed);
+        pills.forEach((p) => p.classList.toggle('active', p.dataset.photo === mode));
+        try { localStorage.setItem('photoBg', mode); } catch (e) {}
+      }
+
+      let current = 'blue';
+      try { current = localStorage.getItem('photoBg') || 'blue'; } catch (e) {}
+      if (current !== 'blue' && current !== 'red') current = 'blue';
+      setPhoto(current);
+
+      // Klik foto = ganti ke warna lainnya
+      toggleBtn?.addEventListener('click', () => {
+        current = current === 'blue' ? 'red' : 'blue';
+        setPhoto(current);
+      });
+
+      // Klik tombol Biru / Merah
+      pills.forEach((p) => p.addEventListener('click', () => {
+        current = p.dataset.photo;
+        setPhoto(current);
+      }));
     })();
   </script>
 </body>
