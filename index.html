@@ -410,9 +410,13 @@
       if (!modal || !frame || !openBtn) return;
 
       function openModal() {
-        if (frame.getAttribute('src') === 'about:blank') frame.setAttribute('src', CV_URL); // dimuat saat pertama dibuka
+        // Tampilkan modal DULU, baru muat PDF. Jika PDF dimuat saat iframe masih
+        // tersembunyi (display:none), viewer bawaan Chrome sering menampilkan halaman kosong.
         modal.classList.remove('hidden');
         document.body.classList.add('modal-open');
+        if (frame.getAttribute('src') === 'about:blank') {
+          requestAnimationFrame(() => frame.setAttribute('src', CV_URL));
+        }
         closeBtn?.focus();
       }
 
