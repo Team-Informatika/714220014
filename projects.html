@@ -4,114 +4,290 @@
   <meta charset="UTF-8" />
   <title>Proyek – Wafid</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Proyek portofolio Wafid Adzka: Simpan Pinjam, Web Wisata, Web Pelajaran, Toko Emas, dan Booking Room." />
+
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    tailwind.config = { darkMode: 'class' }
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'] },
+          keyframes: {
+            blob: {
+              '0%,100%': { transform: 'translate(0,0) scale(1)' },
+              '33%': { transform: 'translate(30px,-40px) scale(1.1)' },
+              '66%': { transform: 'translate(-20px,20px) scale(0.95)' }
+            }
+          },
+          animation: { blob: 'blob 12s ease-in-out infinite' }
+        }
+      }
+    };
   </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Terapkan tema sebelum render agar tidak berkedip -->
+  <script>
+    (function () {
+      const saved = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (saved === 'dark' || (!saved && prefersDark)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+
+  <style>
+    html { scroll-behavior: smooth; }
+
+    .gradient-text {
+      background: linear-gradient(90deg, #facc15, #f97316, #ec4899);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.show { opacity: 1; transform: none; }
+
+    .nav-link { position: relative; padding: 4px 0; transition: color .2s; }
+    .nav-link::after {
+      content: ''; position: absolute; left: 0; bottom: -2px; height: 2px; width: 0;
+      background: linear-gradient(90deg, #facc15, #f97316); transition: width .25s ease;
+    }
+    .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+    .nav-link.active { color: #eab308; font-weight: 600; }
+
+    .card-glass {
+      background: rgba(255,255,255,.7);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(229,231,235,.7);
+      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+    }
+    .dark .card-glass { background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.1); }
+    .project-card:hover { transform: translateY(-6px); box-shadow: 0 22px 44px -14px rgba(249,115,22,.35); border-color: rgba(250,204,21,.6); }
+    .project-card:hover .thumb { transform: scale(1.06); }
+    .thumb { transition: transform .5s ease; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .animate-blob { animation: none !important; }
+      .thumb { transition: none; }
+    }
+  </style>
 </head>
-<body class="bg-white text-gray-900 dark:bg-gray-900 dark:text-white font-sans min-h-screen flex flex-col">
+<body class="bg-gray-50 text-gray-900 dark:bg-gray-950 dark:text-gray-100 font-sans min-h-screen flex flex-col antialiased transition-colors duration-300">
 
   <!-- HEADER -->
-  <header class="bg-white dark:bg-gray-800 shadow sticky top-0 z-50">
+  <header class="bg-white/70 dark:bg-gray-900/70 backdrop-blur-lg border-b border-gray-200/60 dark:border-white/10 sticky top-0 z-50">
     <div class="max-w-6xl mx-auto flex items-center justify-between px-4 py-4">
-      <h1 class="text-xl font-bold">WafidAdzka</h1>
-      <nav class="hidden md:flex space-x-4">
-        <a href="index.html">Home</a>
-        <a href="about.html">Tentang</a>
-        <a href="skills.html">Skills</a>
-        <a href="projects.html">Proyek</a>
-        <a href="kampus.html">Kampus</a>
-        <a href="organisasi.html">Organisasi</a>
-        <a href="Intership.html">Internship</a>
-        <a href="contact.html">Kontak</a>
-        <button id="toggle-dark">🌓</button>
+      <a href="index.html" class="text-xl font-extrabold tracking-tight">
+        Wafid<span class="gradient-text">Adzka</span>
+      </a>
+      <nav class="hidden md:flex items-center space-x-6 text-sm font-medium">
+        <a class="nav-link" href="index.html">Home</a>
+        <a class="nav-link" href="about.html">Tentang</a>
+        <a class="nav-link" href="skills.html">Skills</a>
+        <a class="nav-link active" href="projects.html">Proyek</a>
+        <a class="nav-link" href="kampus.html">Kampus</a>
+        <a class="nav-link" href="organisasi.html">Organisasi</a>
+        <a class="nav-link" href="Intership.html">Internship</a>
+        <a class="nav-link" href="contact.html">Kontak</a>
+        <button id="toggle-dark" aria-label="Ganti tema"
+                class="w-9 h-9 rounded-full bg-gray-200 dark:bg-gray-800 hover:scale-110 transition">🌓</button>
       </nav>
-      <button class="md:hidden" id="menu-toggle">☰</button>
+      <div class="md:hidden flex items-center gap-2">
+        <button id="toggle-dark-m" aria-label="Ganti tema"
+                class="w-9 h-9 rounded-full bg-gray-200 dark:bg-gray-800">🌓</button>
+        <button id="menu-toggle" aria-label="Buka menu" class="w-9 h-9 text-xl">☰</button>
+      </div>
     </div>
 
-    <div id="mobile-menu" class="md:hidden hidden px-4 pb-4">
-      <a href="index.html" class="block py-1">Home</a>
-      <a href="about.html" class="block py-1">Tentang</a>
-      <a href="skills.html" class="block py-1">Skills</a>
-      <a href="projects.html" class="block py-1">Proyek</a>
-      <a href="kampus.html" class="block py-1">Kampus</a>
-      <a href="organisasi.html" class="block py-1">Organisasi</a>
-      <a href="Intership.html" class="block py-1">Internship</a>
-      <a href="contact.html" class="block py-1">Kontak</a>
+    <div id="mobile-menu" class="md:hidden hidden px-4 pb-4 text-sm font-medium">
+      <a href="index.html" class="block py-2">Home</a>
+      <a href="about.html" class="block py-2">Tentang</a>
+      <a href="skills.html" class="block py-2">Skills</a>
+      <a href="projects.html" class="block py-2 text-yellow-500 font-semibold">Proyek</a>
+      <a href="kampus.html" class="block py-2">Kampus</a>
+      <a href="organisasi.html" class="block py-2">Organisasi</a>
+      <a href="Intership.html" class="block py-2">Internship</a>
+      <a href="contact.html" class="block py-2">Kontak</a>
     </div>
   </header>
 
   <!-- MAIN -->
-  <main class="max-w-6xl mx-auto px-4 py-16 flex-grow">
-    <h2 class="text-3xl font-bold mb-10 text-yellow-400 text-center">Proyek Portofolio</h2>
+  <main class="relative flex-grow overflow-hidden">
 
-    <div class="grid gap-12 sm:grid-cols-2 lg:grid-cols-2">
+    <!-- Dekorasi latar -->
+    <div class="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+      <div class="absolute -top-24 -left-24 w-96 h-96 bg-yellow-400/30 dark:bg-yellow-500/15 rounded-full blur-3xl animate-blob"></div>
+      <div class="absolute top-40 -right-24 w-96 h-96 bg-pink-400/30 dark:bg-pink-500/15 rounded-full blur-3xl animate-blob" style="animation-delay:-4s"></div>
+      <div class="absolute bottom-0 left-1/3 w-96 h-96 bg-sky-400/25 dark:bg-sky-500/10 rounded-full blur-3xl animate-blob" style="animation-delay:-8s"></div>
+    </div>
 
-      <!-- Proyek 1 -->
-      <div>
-        <img src="assets/SimpanPinjam.png" class="w-full h-56 object-cover rounded-lg shadow-lg" alt="Simpan Pinjam">
-        <h3 class="text-2xl font-semibold mt-4">Simpan Pinjam (2022–2023)</h3>
-        <p class="text-gray-700 dark:text-gray-300 mt-2">
-          Sistem koperasi digital yang menyediakan fitur simpanan, pinjaman, serta laporan keuangan real-time untuk pengelolaan anggota dan dana koperasi.
+    <div class="max-w-6xl mx-auto px-4 py-14 md:py-20">
+
+      <!-- Judul -->
+      <div class="text-center mb-12 reveal">
+        <span class="inline-block text-xs font-semibold tracking-widest uppercase px-3 py-1 rounded-full bg-yellow-400/20 text-yellow-600 dark:text-yellow-300 mb-4">
+          Karya saya 🚀
+        </span>
+        <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight">
+          Proyek <span class="gradient-text">Portofolio</span>
+        </h2>
+        <p class="mt-4 text-gray-600 dark:text-gray-400 max-w-xl mx-auto">
+          Beberapa proyek yang pernah saya kerjakan selama masa perkuliahan.
         </p>
-        <a href="https://github.com/wafidadzka2105/Proyek_1_AplikasiSimpanPinjam" class="text-blue-400 hover:underline block mt-2">🔗 GitHub</a>
       </div>
 
-      <!-- Proyek 2 -->
-      <div>
-        <img src="assets/WebWisata.png" class="w-full h-56 object-cover rounded-lg shadow-lg" alt="Web Wisata Interaktif">
-        <h3 class="text-2xl font-semibold mt-4">Web Wisata Interaktif (2023–2024)</h3>
-        <p class="text-gray-700 dark:text-gray-300 mt-2">
-          Platform pencarian lokasi wisata, galeri destinasi, ulasan pengunjung, dan sistem booking tiket yang mempermudah wisatawan menjelajahi Indonesia.
-        </p>
+      <div class="grid gap-8 sm:grid-cols-2">
+
+        <!-- Proyek 1 -->
+        <article class="reveal project-card card-glass rounded-3xl shadow-xl overflow-hidden flex flex-col">
+          <div class="relative h-56 overflow-hidden bg-gradient-to-br from-yellow-400/40 to-pink-400/40">
+            <img src="assets/SimpanPinjam.png" alt="Simpan Pinjam" class="thumb w-full h-full object-cover" loading="lazy" />
+            <span class="absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-semibold bg-white/90 dark:bg-gray-900/80 backdrop-blur text-gray-800 dark:text-gray-100">2022 – 2023</span>
+          </div>
+          <div class="p-6 flex flex-col flex-grow">
+            <h3 class="text-2xl font-bold">Simpan Pinjam</h3>
+            <p class="text-gray-700 dark:text-gray-300 mt-3 leading-relaxed flex-grow">
+              Sistem koperasi digital yang menyediakan fitur simpanan, pinjaman, serta laporan keuangan real-time untuk pengelolaan anggota dan dana koperasi.
+            </p>
+            <div class="flex flex-wrap gap-3 mt-5">
+              <a href="https://github.com/wafidadzka2105/Proyek_1_AplikasiSimpanPinjam" target="_blank" rel="noopener"
+                 class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold text-gray-900 bg-gradient-to-r from-yellow-400 to-orange-400 shadow-lg shadow-orange-500/20 hover:shadow-orange-500/40 hover:-translate-y-0.5 transition">
+                🔗 GitHub ↗
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Proyek 2 -->
+        <article class="reveal project-card card-glass rounded-3xl shadow-xl overflow-hidden flex flex-col" style="transition-delay:.08s">
+          <div class="relative h-56 overflow-hidden bg-gradient-to-br from-sky-400/40 to-purple-400/40">
+            <img src="assets/WebWisata.png" alt="Web Wisata Interaktif" class="thumb w-full h-full object-cover" loading="lazy" />
+            <span class="absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-semibold bg-white/90 dark:bg-gray-900/80 backdrop-blur text-gray-800 dark:text-gray-100">2023 – 2024</span>
+          </div>
+          <div class="p-6 flex flex-col flex-grow">
+            <h3 class="text-2xl font-bold">Web Wisata Interaktif</h3>
+            <p class="text-gray-700 dark:text-gray-300 mt-3 leading-relaxed flex-grow">
+              Platform pencarian lokasi wisata, galeri destinasi, ulasan pengunjung, dan sistem booking tiket yang mempermudah wisatawan menjelajahi Indonesia.
+            </p>
+          </div>
+        </article>
+
+        <!-- Proyek 3 -->
+        <article class="reveal project-card card-glass rounded-3xl shadow-xl overflow-hidden flex flex-col">
+          <div class="relative h-56 overflow-hidden bg-gradient-to-br from-green-400/40 to-sky-400/40">
+            <img src="assets/WebPelajaran.png" alt="Web Pelajaran" class="thumb w-full h-full object-cover" loading="lazy" />
+            <span class="absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-semibold bg-white/90 dark:bg-gray-900/80 backdrop-blur text-gray-800 dark:text-gray-100">2023 – 2024</span>
+          </div>
+          <div class="p-6 flex flex-col flex-grow">
+            <h3 class="text-2xl font-bold">Web Pelajaran</h3>
+            <p class="text-gray-700 dark:text-gray-300 mt-3 leading-relaxed flex-grow">
+              Website edukasi berbasis web yang berisi materi interaktif, soal latihan, dan kuis untuk mendukung pembelajaran daring di berbagai jenjang.
+            </p>
+            <div class="flex flex-wrap gap-3 mt-5">
+              <a href="https://wafidadzka2105.github.io/WebPelajaran/" target="_blank" rel="noopener"
+                 class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold text-gray-900 bg-gradient-to-r from-yellow-400 to-orange-400 shadow-lg shadow-orange-500/20 hover:shadow-orange-500/40 hover:-translate-y-0.5 transition">
+                🔗 Lihat Proyek ↗
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Proyek 4 -->
+        <article class="reveal project-card card-glass rounded-3xl shadow-xl overflow-hidden flex flex-col" style="transition-delay:.08s">
+          <div class="relative h-56 overflow-hidden bg-gradient-to-br from-yellow-400/40 to-orange-400/40">
+            <img src="assets/TokoMAs.png" alt="Toko Emas" class="thumb w-full h-full object-cover" loading="lazy" />
+            <span class="absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-semibold bg-white/90 dark:bg-gray-900/80 backdrop-blur text-gray-800 dark:text-gray-100">2024 – 2025</span>
+          </div>
+          <div class="p-6 flex flex-col flex-grow">
+            <h3 class="text-2xl font-bold">Toko Emas</h3>
+            <p class="text-gray-700 dark:text-gray-300 mt-3 leading-relaxed flex-grow">
+              Website katalog emas dengan update harga real-time, fitur keranjang dan checkout online, serta integrasi pembayaran sederhana berbasis web.
+            </p>
+            <div class="flex flex-wrap gap-3 mt-5">
+              <a href="https://proyek3webtokoemas.github.io/FEPROYEK1/" target="_blank" rel="noopener"
+                 class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold text-gray-900 bg-gradient-to-r from-yellow-400 to-orange-400 shadow-lg shadow-orange-500/20 hover:shadow-orange-500/40 hover:-translate-y-0.5 transition">
+                🔗 Lihat Proyek ↗
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Proyek 5 -->
+        <article class="reveal project-card card-glass rounded-3xl shadow-xl overflow-hidden flex flex-col sm:col-span-2 lg:col-span-2">
+          <div class="grid md:grid-cols-2 h-full">
+            <div class="relative h-56 md:h-full min-h-[14rem] overflow-hidden bg-gradient-to-br from-pink-400/40 to-purple-400/40">
+              <img src="assets/BookingRoom.png" alt="Booking Room" class="thumb w-full h-full object-cover" loading="lazy" />
+              <span class="absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-semibold bg-white/90 dark:bg-gray-900/80 backdrop-blur text-gray-800 dark:text-gray-100">2025 – 2026</span>
+              <span class="absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-semibold bg-gradient-to-r from-yellow-400 to-orange-400 text-gray-900">Terbaru</span>
+            </div>
+            <div class="p-6 md:p-8 flex flex-col justify-center">
+              <h3 class="text-2xl font-bold">Booking Room</h3>
+              <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">📱 Aplikasi Android</p>
+              <p class="text-gray-700 dark:text-gray-300 mt-3 leading-relaxed">
+                Aplikasi booking room berbasis App Android dengan fitur pengecekan ketersediaan ruangan secara real-time, sistem reservasi, serta pengelolaan jadwal penggunaan ruangan secara praktis dan efisien.
+              </p>
+            </div>
+          </div>
+        </article>
+
       </div>
 
-      <!-- Proyek 3 -->
-      <div>
-        <img src="assets/WebPelajaran.png" class="w-full h-56 object-cover rounded-lg shadow-lg" alt="Web Pelajaran">
-        <h3 class="text-2xl font-semibold mt-4">Web Pelajaran (2023–2024)</h3>
-        <p class="text-gray-700 dark:text-gray-300 mt-2">
-          Website edukasi berbasis web yang berisi materi interaktif, soal latihan, dan kuis untuk mendukung pembelajaran daring di berbagai jenjang.
-        </p>
-        <a href="https://wafidadzka2105.github.io/WebPelajaran/" class="text-blue-400 hover:underline block mt-2">🔗 GitHub</a>
-      </div>
-
-      <!-- Proyek 4 -->
-      <div>
-        <img src="assets/TokoMAs.png" class="w-full h-56 object-cover rounded-lg shadow-lg" alt="Toko Emas">
-        <h3 class="text-2xl font-semibold mt-4">Toko Emas (2024–2025)</h3>
-        <p class="text-gray-700 dark:text-gray-300 mt-2">
-          Website katalog emas dengan update harga real-time, fitur keranjang dan checkout online, serta integrasi pembayaran sederhana berbasis web.
-        </p>
-        <a href="https://proyek3webtokoemas.github.io/FEPROYEK1/" class="text-blue-400 hover:underline block mt-2">🔗 GitHub</a>
-      </div>
-
-      <!-- Proyek 5 -->
-      <div>
-        <img src="assets/BookingRoom.png" class="w-full h-56 object-cover rounded-lg shadow-lg" alt="Booking Room">
-        <h3 class="text-2xl font-semibold mt-4">Boooking Room (2025–2026)</h3>
-        <p class="text-gray-700 dark:text-gray-300 mt-2">
-          Aplikasi booking room berbasis App Andorid dengan fitur pengecekan ketersediaan ruangan secara real-time, sistem reservasi, serta pengelolaan jadwal penggunaan ruangan secara praktis dan efisien.
-        </p>
+      <!-- CTA -->
+      <div class="reveal text-center mt-14">
+        <p class="text-gray-600 dark:text-gray-400 mb-4">Tertarik berkolaborasi atau ingin melihat lebih banyak karya?</p>
+        <div class="flex flex-wrap justify-center gap-3">
+          <a href="https://github.com/wafidadzka2105" target="_blank" rel="noopener"
+             class="px-5 py-2.5 rounded-xl font-semibold text-gray-900 bg-gradient-to-r from-yellow-400 to-orange-400 shadow-lg shadow-orange-500/20 hover:shadow-orange-500/40 hover:-translate-y-0.5 transition">
+            Lihat GitHub Saya ↗
+          </a>
+          <a href="contact.html"
+             class="px-5 py-2.5 rounded-xl font-semibold border border-gray-300 dark:border-white/20 hover:bg-gray-100 dark:hover:bg-white/10 hover:-translate-y-0.5 transition">
+            📬 Hubungi Saya
+          </a>
+        </div>
       </div>
 
     </div>
   </main>
 
   <!-- FOOTER -->
-  <footer class="bg-gray-900 text-center text-gray-400 py-4 mt-10">
-    &copy; 2026 Wafid Adzka.
+  <footer class="border-t border-gray-200 dark:border-white/10 bg-white dark:bg-gray-900 text-center text-gray-500 dark:text-gray-400 py-6 text-sm">
+    &copy; 2026 Wafid Adzka. Dibuat dengan ☕ di Bandung.
   </footer>
 
   <!-- SCRIPT -->
   <script>
-    document.getElementById('menu-toggle').addEventListener('click', () => {
-      document.getElementById('mobile-menu').classList.toggle('hidden');
+    // Menu mobile
+    document.getElementById('menu-toggle')?.addEventListener('click', () => {
+      document.getElementById('mobile-menu')?.classList.toggle('hidden');
     });
 
-    document.getElementById('toggle-dark').addEventListener('click', () => {
+    // Dark mode (desktop & mobile)
+    function toggleTheme() {
       document.documentElement.classList.toggle('dark');
-    });
+      localStorage.setItem('theme',
+        document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+    }
+    document.getElementById('toggle-dark')?.addEventListener('click', toggleTheme);
+    document.getElementById('toggle-dark-m')?.addEventListener('click', toggleTheme);
+
+    // Animasi muncul saat di-scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
   </script>
 </body>
 </html>

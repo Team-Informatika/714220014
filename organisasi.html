@@ -4,103 +4,263 @@
   <meta charset="UTF-8" />
   <title>Organisasi – Wafid</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Pengalaman organisasi Wafid Adzka di UKM Kradio ULBI sebagai Media Desain dan General Manager." />
+
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    tailwind.config = { darkMode: 'class' }
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'] },
+          keyframes: {
+            blob: {
+              '0%,100%': { transform: 'translate(0,0) scale(1)' },
+              '33%': { transform: 'translate(30px,-40px) scale(1.1)' },
+              '66%': { transform: 'translate(-20px,20px) scale(0.95)' }
+            }
+          },
+          animation: { blob: 'blob 12s ease-in-out infinite' }
+        }
+      }
+    };
   </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Terapkan tema sebelum render agar tidak berkedip -->
+  <script>
+    (function () {
+      const saved = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (saved === 'dark' || (!saved && prefersDark)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+
+  <style>
+    html { scroll-behavior: smooth; }
+
+    .gradient-text {
+      background: linear-gradient(90deg, #facc15, #f97316, #ec4899);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.show { opacity: 1; transform: none; }
+
+    .nav-link { position: relative; padding: 4px 0; transition: color .2s; }
+    .nav-link::after {
+      content: ''; position: absolute; left: 0; bottom: -2px; height: 2px; width: 0;
+      background: linear-gradient(90deg, #facc15, #f97316); transition: width .25s ease;
+    }
+    .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+    .nav-link.active { color: #eab308; font-weight: 600; }
+
+    .card-glass {
+      background: rgba(255,255,255,.7);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(229,231,235,.7);
+      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+    }
+    .dark .card-glass { background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.1); }
+    .timeline-card:hover { transform: translateY(-4px); box-shadow: 0 18px 40px -12px rgba(249,115,22,.35); border-color: rgba(250,204,21,.6); }
+
+    /* Garis timeline */
+    .timeline { position: relative; }
+    .timeline::before {
+      content: ''; position: absolute; left: 19px; top: 8px; bottom: 8px; width: 2px;
+      background: linear-gradient(to bottom, #facc15, #f97316, #ec4899);
+      border-radius: 2px; opacity: .6;
+    }
+
+    /* Titik berdenyut untuk peran aktif */
+    .pulse-dot { animation: pulse-ring 2s ease-out infinite; }
+    @keyframes pulse-ring {
+      0% { box-shadow: 0 0 0 0 rgba(34,197,94,.6); }
+      70% { box-shadow: 0 0 0 10px rgba(34,197,94,0); }
+      100% { box-shadow: 0 0 0 0 rgba(34,197,94,0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .animate-blob, .pulse-dot { animation: none !important; }
+    }
+  </style>
 </head>
-<body class="bg-white text-gray-900 dark:bg-gray-900 dark:text-white font-sans flex flex-col min-h-screen">
+<body class="bg-gray-50 text-gray-900 dark:bg-gray-950 dark:text-gray-100 font-sans min-h-screen flex flex-col antialiased transition-colors duration-300">
 
   <!-- HEADER -->
-  <header class="bg-white dark:bg-gray-800 shadow sticky top-0 z-50">
+  <header class="bg-white/70 dark:bg-gray-900/70 backdrop-blur-lg border-b border-gray-200/60 dark:border-white/10 sticky top-0 z-50">
     <div class="max-w-6xl mx-auto flex items-center justify-between px-4 py-4">
-      <h1 class="text-xl font-bold">WafidAdzka</h1>
-      <nav class="hidden md:flex space-x-4">
-        <a href="index.html">Home</a>
-        <a href="about.html">Tentang</a>
-        <a href="skills.html">Skills</a>
-        <a href="projects.html">Proyek</a>
-        <a href="kampus.html">Kampus</a>
-        <a href="organisasi.html">Organisasi</a>
-        <a href="Intership.html" >Internship</a>
-        <a href="contact.html">Kontak</a>
-        <button id="toggle-dark">🌓</button>
+      <a href="index.html" class="text-xl font-extrabold tracking-tight">
+        Wafid<span class="gradient-text">Adzka</span>
+      </a>
+      <nav class="hidden md:flex items-center space-x-6 text-sm font-medium">
+        <a class="nav-link" href="index.html">Home</a>
+        <a class="nav-link" href="about.html">Tentang</a>
+        <a class="nav-link" href="skills.html">Skills</a>
+        <a class="nav-link" href="projects.html">Proyek</a>
+        <a class="nav-link" href="kampus.html">Kampus</a>
+        <a class="nav-link active" href="organisasi.html">Organisasi</a>
+        <a class="nav-link" href="Intership.html">Internship</a>
+        <a class="nav-link" href="contact.html">Kontak</a>
+        <button id="toggle-dark" aria-label="Ganti tema"
+                class="w-9 h-9 rounded-full bg-gray-200 dark:bg-gray-800 hover:scale-110 transition">🌓</button>
       </nav>
-      <button class="md:hidden" id="menu-toggle">☰</button>
+      <div class="md:hidden flex items-center gap-2">
+        <button id="toggle-dark-m" aria-label="Ganti tema"
+                class="w-9 h-9 rounded-full bg-gray-200 dark:bg-gray-800">🌓</button>
+        <button id="menu-toggle" aria-label="Buka menu" class="w-9 h-9 text-xl">☰</button>
+      </div>
     </div>
 
-    <div id="mobile-menu" class="md:hidden hidden px-4 pb-4">
-      <a href="index.html" class="block py-1">Home</a>
-      <a href="about.html" class="block py-1">Tentang</a>
-      <a href="skills.html" class="block py-1">Skills</a>
-      <a href="projects.html" class="block py-1">Proyek</a>
-      <a href="kampus.html" class="block py-1">Kampus</a>
-      <a href="organisasi.html" class="block py-1">Organisasi</a>
-      <a href="Intership.html" class="block py-1">Internship</a>
-      <a href="contact.html" class="block py-1">Kontak</a>
+    <div id="mobile-menu" class="md:hidden hidden px-4 pb-4 text-sm font-medium">
+      <a href="index.html" class="block py-2">Home</a>
+      <a href="about.html" class="block py-2">Tentang</a>
+      <a href="skills.html" class="block py-2">Skills</a>
+      <a href="projects.html" class="block py-2">Proyek</a>
+      <a href="kampus.html" class="block py-2">Kampus</a>
+      <a href="organisasi.html" class="block py-2 text-yellow-500 font-semibold">Organisasi</a>
+      <a href="Intership.html" class="block py-2">Internship</a>
+      <a href="contact.html" class="block py-2">Kontak</a>
     </div>
   </header>
 
   <!-- MAIN -->
-  <main class="max-w-4xl mx-auto px-4 py-12 flex-grow">
-    <h2 class="text-3xl font-bold text-yellow-400 mb-8">Pengalaman Organisasi</h2>
+  <main class="relative flex-grow overflow-hidden">
 
-    <!-- Media Desain -->
-    <div class="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg shadow mb-6">
-      <h3 class="text-xl font-semibold mb-2">Media Desain – UKM Kradio ULBI (2024–2025)</h3>
-      <p class="text-gray-700 dark:text-gray-300">
-        Bertugas dalam pembuatan desain visual seperti poster, konten sosial media, dan branding event untuk UKM Kradio.
-        Peran ini memperkuat keahlian visual branding, desain UI/UX dasar, serta koordinasi produksi konten digital dalam tim.
-      </p>
-      <a href="https://www.instagram.com/p/C4U2Nt4Ppzh/?img_index=3&igsh=OTdvcGo3czA2Y2Nr"
-         target="_blank"
-         class="inline-flex items-center gap-2 mt-3 text-blue-400 hover:text-yellow-300 transition">
-        <img src="https://img.icons8.com/ios-filled/20/instagram-new.png" alt="Instagram Icon" />
-        Lihat Dokumentasi di Instagram
-      </a>
+    <!-- Dekorasi latar -->
+    <div class="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+      <div class="absolute -top-24 -left-24 w-96 h-96 bg-yellow-400/30 dark:bg-yellow-500/15 rounded-full blur-3xl animate-blob"></div>
+      <div class="absolute top-40 -right-24 w-96 h-96 bg-pink-400/30 dark:bg-pink-500/15 rounded-full blur-3xl animate-blob" style="animation-delay:-4s"></div>
+      <div class="absolute bottom-0 left-1/3 w-96 h-96 bg-sky-400/25 dark:bg-sky-500/10 rounded-full blur-3xl animate-blob" style="animation-delay:-8s"></div>
     </div>
 
-    <!-- General Manager -->
-    <div class="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg shadow">
-      <h3 class="text-xl font-semibold mb-2">General Manager – UKM Kradio ULBI (2025–Sekarang)</h3>
-      <p class="text-gray-700 dark:text-gray-300">
-        Memimpin seluruh struktur organisasi, bertanggung jawab dalam penyusunan program kerja, mengatur SDM, serta mewakili UKM secara resmi.
-        Fokus pada kolaborasi lintas organisasi kampus, manajemen acara besar, dan pengembangan potensi anggota.
-      </p>
-      <a href="https://www.instagram.com/p/DJtC5mLhEMc/?img_index=1&igsh=MXJ5eGx4OGUyY3dzdA=="
-         target="_blank"
-         class="inline-flex items-center gap-2 mt-3 text-blue-400 hover:text-yellow-300 transition">
-        <img src="https://img.icons8.com/ios-filled/20/instagram-new.png" alt="Instagram Icon" />
-        Lihat Dokumentasi di Instagram
-      </a>
+    <div class="max-w-4xl mx-auto px-4 py-14 md:py-20">
+
+      <!-- Judul -->
+      <div class="text-center mb-12 reveal">
+        <span class="inline-block text-xs font-semibold tracking-widest uppercase px-3 py-1 rounded-full bg-yellow-400/20 text-yellow-600 dark:text-yellow-300 mb-4">
+          Belajar memimpin 🤝
+        </span>
+        <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight">
+          Pengalaman <span class="gradient-text">Organisasi</span>
+        </h2>
+        <p class="mt-4 text-gray-600 dark:text-gray-400 max-w-xl mx-auto">
+          Perjalanan saya di UKM Kradio ULBI, dari bagian desain hingga memimpin organisasi.
+        </p>
+      </div>
+
+      <!-- TIMELINE (terbaru di atas) -->
+      <div class="timeline space-y-8">
+
+        <!-- General Manager -->
+        <article class="reveal relative pl-14">
+          <span class="absolute left-0 top-5 w-10 h-10 grid place-items-center rounded-full bg-gradient-to-br from-yellow-400 to-orange-500 text-white text-lg shadow-lg">👑</span>
+
+          <div class="timeline-card card-glass rounded-3xl shadow-xl p-6 md:p-8">
+            <div class="flex flex-wrap items-center gap-2 mb-3">
+              <span class="px-3 py-1 rounded-full text-sm font-semibold bg-yellow-400/20 text-yellow-700 dark:text-yellow-300 border border-yellow-400/30">2025 – Sekarang</span>
+              <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-sm font-semibold bg-green-400/20 text-green-700 dark:text-green-300 border border-green-400/30">
+                <span class="pulse-dot w-2 h-2 rounded-full bg-green-500"></span> Aktif
+              </span>
+            </div>
+
+            <h3 class="text-xl md:text-2xl font-bold leading-tight">General Manager</h3>
+            <p class="text-gray-500 dark:text-gray-400 mb-4">UKM Kradio ULBI</p>
+
+            <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+              Memimpin seluruh struktur organisasi, bertanggung jawab dalam penyusunan program kerja, mengatur SDM, serta mewakili UKM secara resmi.
+              Fokus pada kolaborasi lintas organisasi kampus, manajemen acara besar, dan pengembangan potensi anggota.
+            </p>
+
+            <div class="flex flex-wrap gap-2 mt-4">
+              <span class="px-3 py-1 rounded-full text-xs font-medium bg-sky-400/20 text-sky-700 dark:text-sky-300 border border-sky-400/30">Kepemimpinan</span>
+              <span class="px-3 py-1 rounded-full text-xs font-medium bg-pink-400/20 text-pink-700 dark:text-pink-300 border border-pink-400/30">Manajemen Acara</span>
+              <span class="px-3 py-1 rounded-full text-xs font-medium bg-purple-400/20 text-purple-700 dark:text-purple-300 border border-purple-400/30">Kolaborasi</span>
+            </div>
+
+            <a href="https://www.instagram.com/p/DJtC5mLhEMc/?img_index=1&igsh=MXJ5eGx4OGUyY3dzdA=="
+               target="_blank" rel="noopener"
+               class="inline-flex items-center gap-2 mt-5 px-4 py-2 rounded-xl text-sm font-semibold border border-gray-300 dark:border-white/20 hover:bg-gray-100 dark:hover:bg-white/10 hover:-translate-y-0.5 transition">
+              <img src="https://cdn.simpleicons.org/instagram/E4405F" alt="" class="w-4 h-4" />
+              Lihat Dokumentasi di Instagram ↗
+            </a>
+          </div>
+        </article>
+
+        <!-- Media Desain -->
+        <article class="reveal relative pl-14" style="transition-delay:.1s">
+          <span class="absolute left-0 top-5 w-10 h-10 grid place-items-center rounded-full bg-gradient-to-br from-pink-400 to-purple-500 text-white text-lg shadow-lg">🎨</span>
+
+          <div class="timeline-card card-glass rounded-3xl shadow-xl p-6 md:p-8">
+            <div class="flex flex-wrap items-center gap-2 mb-3">
+              <span class="px-3 py-1 rounded-full text-sm font-semibold bg-pink-400/20 text-pink-700 dark:text-pink-300 border border-pink-400/30">2024 – 2025</span>
+            </div>
+
+            <h3 class="text-xl md:text-2xl font-bold leading-tight">Media Desain</h3>
+            <p class="text-gray-500 dark:text-gray-400 mb-4">UKM Kradio ULBI</p>
+
+            <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+              Bertugas dalam pembuatan desain visual seperti poster, konten sosial media, dan branding event untuk UKM Kradio.
+              Peran ini memperkuat keahlian visual branding, desain UI/UX dasar, serta koordinasi produksi konten digital dalam tim.
+            </p>
+
+            <div class="flex flex-wrap gap-2 mt-4">
+              <span class="px-3 py-1 rounded-full text-xs font-medium bg-pink-400/20 text-pink-700 dark:text-pink-300 border border-pink-400/30">Visual Branding</span>
+              <span class="px-3 py-1 rounded-full text-xs font-medium bg-yellow-400/20 text-yellow-700 dark:text-yellow-300 border border-yellow-400/30">UI/UX Dasar</span>
+              <span class="px-3 py-1 rounded-full text-xs font-medium bg-sky-400/20 text-sky-700 dark:text-sky-300 border border-sky-400/30">Konten Digital</span>
+            </div>
+
+            <a href="https://www.instagram.com/p/C4U2Nt4Ppzh/?img_index=3&igsh=OTdvcGo3czA2Y2Nr"
+               target="_blank" rel="noopener"
+               class="inline-flex items-center gap-2 mt-5 px-4 py-2 rounded-xl text-sm font-semibold border border-gray-300 dark:border-white/20 hover:bg-gray-100 dark:hover:bg-white/10 hover:-translate-y-0.5 transition">
+              <img src="https://cdn.simpleicons.org/instagram/E4405F" alt="" class="w-4 h-4" />
+              Lihat Dokumentasi di Instagram ↗
+            </a>
+          </div>
+        </article>
+
+      </div>
     </div>
   </main>
 
   <!-- FOOTER -->
-  <footer class="bg-gray-900 text-center text-gray-400 py-4">
-    &copy; 2026 Wafid Adzka.
+  <footer class="border-t border-gray-200 dark:border-white/10 bg-white dark:bg-gray-900 text-center text-gray-500 dark:text-gray-400 py-6 text-sm">
+    &copy; 2026 Wafid Adzka. Dibuat dengan ☕ di Bandung.
   </footer>
 
-  <!-- SCRIPT DARK MODE -->
+  <!-- SCRIPT -->
   <script>
-    const toggleBtn = document.getElementById('toggle-dark');
-    toggleBtn?.addEventListener('click', () => {
-      document.documentElement.classList.toggle('dark');
-      localStorage.setItem('theme',
-        document.documentElement.classList.contains('dark') ? 'dark' : 'light'
-      );
-    });
-
-    window.addEventListener('DOMContentLoaded', () => {
-      const saved = localStorage.getItem('theme');
-      if (saved === 'dark') {
-        document.documentElement.classList.add('dark');
-      }
-    });
-
+    // Menu mobile
     document.getElementById('menu-toggle')?.addEventListener('click', () => {
       document.getElementById('mobile-menu')?.classList.toggle('hidden');
     });
+
+    // Dark mode (desktop & mobile)
+    function toggleTheme() {
+      document.documentElement.classList.toggle('dark');
+      localStorage.setItem('theme',
+        document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+    }
+    document.getElementById('toggle-dark')?.addEventListener('click', toggleTheme);
+    document.getElementById('toggle-dark-m')?.addEventListener('click', toggleTheme);
+
+    // Animasi muncul saat di-scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
   </script>
 </body>
 </html>

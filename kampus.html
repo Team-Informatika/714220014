@@ -1,96 +1,299 @@
 <!DOCTYPE html>
-<html lang="id" class="">
+<html lang="id">
 <head>
   <meta charset="UTF-8" />
   <title>Kampus – Wafid</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Informasi kampus Wafid Adzka: D4 Teknik Informatika, Universitas Logistik & Bisnis Internasional (ULBI), Bandung." />
+
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    tailwind.config = { darkMode: 'class' }
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'] },
+          keyframes: {
+            blob: {
+              '0%,100%': { transform: 'translate(0,0) scale(1)' },
+              '33%': { transform: 'translate(30px,-40px) scale(1.1)' },
+              '66%': { transform: 'translate(-20px,20px) scale(0.95)' }
+            }
+          },
+          animation: { blob: 'blob 12s ease-in-out infinite' }
+        }
+      }
+    };
   </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Terapkan tema sebelum render agar tidak berkedip -->
+  <script>
+    (function () {
+      const saved = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (saved === 'dark' || (!saved && prefersDark)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+
+  <style>
+    html { scroll-behavior: smooth; }
+
+    .gradient-text {
+      background: linear-gradient(90deg, #facc15, #f97316, #ec4899);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.show { opacity: 1; transform: none; }
+
+    .nav-link { position: relative; padding: 4px 0; transition: color .2s; }
+    .nav-link::after {
+      content: ''; position: absolute; left: 0; bottom: -2px; height: 2px; width: 0;
+      background: linear-gradient(90deg, #facc15, #f97316); transition: width .25s ease;
+    }
+    .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+    .nav-link.active { color: #eab308; font-weight: 600; }
+
+    .card-glass {
+      background: rgba(255,255,255,.7);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(229,231,235,.7);
+      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+    }
+    .dark .card-glass { background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.1); }
+    a.card-glass:hover { transform: translateY(-4px); box-shadow: 0 18px 40px -12px rgba(249,115,22,.35); border-color: rgba(250,204,21,.6); }
+    a.card-glass:hover .arrow { transform: translateX(4px); }
+    .arrow { transition: transform .25s ease; }
+
+    /* Bar IPK terisi saat muncul */
+    .bar-fill { width: 0; transition: width 1.4s cubic-bezier(.2,.8,.2,1) .3s; }
+    .show .bar-fill { width: var(--w); }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .bar-fill { width: var(--w); transition: none; }
+      .animate-blob { animation: none !important; }
+    }
+  </style>
 </head>
-<body class="bg-white text-gray-900 dark:bg-gray-900 dark:text-white font-sans flex flex-col min-h-screen">
+<body class="bg-gray-50 text-gray-900 dark:bg-gray-950 dark:text-gray-100 font-sans min-h-screen flex flex-col antialiased transition-colors duration-300">
 
   <!-- HEADER -->
-  <header class="bg-white dark:bg-gray-800 shadow sticky top-0 z-50">
+  <header class="bg-white/70 dark:bg-gray-900/70 backdrop-blur-lg border-b border-gray-200/60 dark:border-white/10 sticky top-0 z-50">
     <div class="max-w-6xl mx-auto flex items-center justify-between px-4 py-4">
-      <h1 class="text-xl font-bold">WafidAdzka</h1>
-      <nav class="hidden md:flex space-x-4">
-        <a href="index.html">Home</a>
-        <a href="about.html">Tentang</a>
-        <a href="skills.html">Skills</a>
-        <a href="projects.html">Proyek</a>
-        <a href="kampus.html">Kampus</a>
-        <a href="organisasi.html">Organisasi</a>
-        <a href="Intership.html" >Internship</a>
-        <a href="contact.html">Kontak</a>
-        <button id="toggle-dark">🌓</button>
+      <a href="index.html" class="text-xl font-extrabold tracking-tight">
+        Wafid<span class="gradient-text">Adzka</span>
+      </a>
+      <nav class="hidden md:flex items-center space-x-6 text-sm font-medium">
+        <a class="nav-link" href="index.html">Home</a>
+        <a class="nav-link" href="about.html">Tentang</a>
+        <a class="nav-link" href="skills.html">Skills</a>
+        <a class="nav-link" href="projects.html">Proyek</a>
+        <a class="nav-link active" href="kampus.html">Kampus</a>
+        <a class="nav-link" href="organisasi.html">Organisasi</a>
+        <a class="nav-link" href="Intership.html">Internship</a>
+        <a class="nav-link" href="contact.html">Kontak</a>
+        <button id="toggle-dark" aria-label="Ganti tema"
+                class="w-9 h-9 rounded-full bg-gray-200 dark:bg-gray-800 hover:scale-110 transition">🌓</button>
       </nav>
-      <button class="md:hidden" id="menu-toggle">☰</button>
+      <div class="md:hidden flex items-center gap-2">
+        <button id="toggle-dark-m" aria-label="Ganti tema"
+                class="w-9 h-9 rounded-full bg-gray-200 dark:bg-gray-800">🌓</button>
+        <button id="menu-toggle" aria-label="Buka menu" class="w-9 h-9 text-xl">☰</button>
+      </div>
     </div>
 
-    <div id="mobile-menu" class="md:hidden hidden px-4 pb-4">
-      <a href="index.html" class="block py-1">Home</a>
-      <a href="about.html" class="block py-1">Tentang</a>
-      <a href="skills.html" class="block py-1">Skills</a>
-      <a href="projects.html" class="block py-1">Proyek</a>
-      <a href="kampus.html" class="block py-1">Kampus</a>
-      <a href="organisasi.html" class="block py-1">Organisasi</a>
-      <a href="Intership.html" class="block py-1">Internship</a>
-      <a href="contact.html" class="block py-1">Kontak</a>
+    <div id="mobile-menu" class="md:hidden hidden px-4 pb-4 text-sm font-medium">
+      <a href="index.html" class="block py-2">Home</a>
+      <a href="about.html" class="block py-2">Tentang</a>
+      <a href="skills.html" class="block py-2">Skills</a>
+      <a href="projects.html" class="block py-2">Proyek</a>
+      <a href="kampus.html" class="block py-2 text-yellow-500 font-semibold">Kampus</a>
+      <a href="organisasi.html" class="block py-2">Organisasi</a>
+      <a href="Intership.html" class="block py-2">Internship</a>
+      <a href="contact.html" class="block py-2">Kontak</a>
     </div>
   </header>
 
   <!-- MAIN -->
-  <main class="max-w-4xl mx-auto px-4 py-12 flex-grow">
-    <h2 class="text-3xl font-bold text-yellow-400 mb-6">Informasi Kampus</h2>
-    <p class="mb-4 text-gray-700 dark:text-gray-300 leading-relaxed">
-      Saya adalah mahasiswa <a href="https://ulbi.ac.id" target="_blank" class="text-blue-400 hover:underline font-semibold">Universitas Logistik & Bisnis Internasional (ULBI)</a>,
-      kampus BUMN milik PT Pos Indonesia yang berfokus pada logistik, bisnis, dan teknologi.
-    </p>
-    <p class="mb-4 text-gray-700 dark:text-gray-300">
-      Saat ini saya menempuh pendidikan di <a href="https://if.ulbi.ac.id/" target="_blank" class="text-blue-400 hover:underline font-semibold">Program Studi D4 Teknik Informatika</a>
-      semester 8 dengan fokus pada pengembangan software, UI/UX, dan teknologi industri digital.
-    </p>
+  <main class="relative flex-grow overflow-hidden">
 
-    <div class="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg shadow mt-6 text-gray-800 dark:text-gray-200">
-      <ul class="space-y-2">
-        <li><strong>Nama Kampus:</strong> Universitas Logistik & Bisnis Internasional (ULBI)</li>
-        <li><strong>Program Studi:</strong> D4 Teknik Informatika</li>
-        <li><strong>Semester:</strong> 8</li>
-        <li><strong>IPK:</strong> 3.31 / 4.00</li>
-        <li><strong>Alamat:</strong> Jl. Sariasih No.64, Sarijadi, Bandung</li>
-        <li><strong>Email Kampus:</strong> info@ulbi.ac.id</li>
-        <li><strong>Telepon:</strong> +62 813-1111-0194</li>
-      </ul>
+    <!-- Dekorasi latar -->
+    <div class="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+      <div class="absolute -top-24 -left-24 w-96 h-96 bg-yellow-400/30 dark:bg-yellow-500/15 rounded-full blur-3xl animate-blob"></div>
+      <div class="absolute top-40 -right-24 w-96 h-96 bg-pink-400/30 dark:bg-pink-500/15 rounded-full blur-3xl animate-blob" style="animation-delay:-4s"></div>
+      <div class="absolute bottom-0 left-1/3 w-96 h-96 bg-sky-400/25 dark:bg-sky-500/10 rounded-full blur-3xl animate-blob" style="animation-delay:-8s"></div>
+    </div>
+
+    <div class="max-w-4xl mx-auto px-4 py-14 md:py-20">
+
+      <!-- Judul -->
+      <div class="text-center mb-12 reveal">
+        <span class="inline-block text-xs font-semibold tracking-widest uppercase px-3 py-1 rounded-full bg-yellow-400/20 text-yellow-600 dark:text-yellow-300 mb-4">
+          Rumah belajar saya 🎓
+        </span>
+        <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight">
+          Informasi <span class="gradient-text">Kampus</span>
+        </h2>
+      </div>
+
+      <!-- DESKRIPSI -->
+      <section class="reveal card-glass rounded-3xl shadow-xl p-6 md:p-10 space-y-4 text-gray-700 dark:text-gray-300 leading-relaxed">
+        <p>
+          Saya adalah mahasiswa
+          <a href="https://ulbi.ac.id" target="_blank" rel="noopener"
+             class="font-semibold text-blue-500 hover:text-blue-400 underline decoration-dotted underline-offset-4">Universitas Logistik &amp; Bisnis Internasional (ULBI)</a>,
+          kampus BUMN milik PT Pos Indonesia yang berfokus pada logistik, bisnis, dan teknologi.
+        </p>
+        <p>
+          Saat ini saya menempuh pendidikan di
+          <a href="https://if.ulbi.ac.id/" target="_blank" rel="noopener"
+             class="font-semibold text-blue-500 hover:text-blue-400 underline decoration-dotted underline-offset-4">Program Studi D4 Teknik Informatika</a>
+          semester 8 dengan fokus pada pengembangan software, UI/UX, dan teknologi industri digital.
+        </p>
+      </section>
+
+      <!-- STATISTIK -->
+      <section class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-8">
+        <div class="reveal card-glass text-center rounded-2xl p-5 shadow hover:-translate-y-1 hover:shadow-xl">
+          <p class="text-3xl font-extrabold gradient-text">D4</p>
+          <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Teknik Informatika</p>
+        </div>
+        <div class="reveal card-glass text-center rounded-2xl p-5 shadow hover:-translate-y-1 hover:shadow-xl" style="transition-delay:.1s">
+          <p class="text-3xl font-extrabold gradient-text">8</p>
+          <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Semester</p>
+        </div>
+        <div class="reveal card-glass text-center rounded-2xl p-5 shadow hover:-translate-y-1 hover:shadow-xl" style="transition-delay:.2s">
+          <p class="text-3xl font-extrabold gradient-text">3.31</p>
+          <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">IPK</p>
+        </div>
+      </section>
+
+      <!-- IPK BAR -->
+      <section class="reveal card-glass rounded-2xl shadow p-5 mt-4">
+        <div class="flex items-center justify-between mb-2 text-sm">
+          <span class="font-semibold">Indeks Prestasi Kumulatif</span>
+          <span class="text-gray-500 dark:text-gray-400">3.31 / 4.00</span>
+        </div>
+        <div class="h-3 rounded-full bg-gray-200 dark:bg-white/10 overflow-hidden">
+          <div class="bar-fill h-full rounded-full bg-gradient-to-r from-yellow-400 via-orange-400 to-pink-500" style="--w: 82.75%"></div>
+        </div>
+      </section>
+
+      <!-- DETAIL KAMPUS -->
+      <section class="mt-12">
+        <h3 class="reveal text-2xl font-bold mb-6 text-center sm:text-left">
+          Detail <span class="gradient-text">Kampus</span>
+        </h3>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+          <div class="reveal card-glass sm:col-span-2 flex items-center gap-4 rounded-2xl p-5 shadow hover:-translate-y-1 hover:shadow-xl">
+            <div class="w-12 h-12 shrink-0 grid place-items-center rounded-xl bg-yellow-400/20 text-2xl">🏛️</div>
+            <div class="min-w-0">
+              <p class="text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400">Nama Kampus</p>
+              <p class="font-semibold">Universitas Logistik &amp; Bisnis Internasional (ULBI)</p>
+            </div>
+          </div>
+
+          <div class="reveal card-glass flex items-center gap-4 rounded-2xl p-5 shadow hover:-translate-y-1 hover:shadow-xl" style="transition-delay:.05s">
+            <div class="w-12 h-12 shrink-0 grid place-items-center rounded-xl bg-sky-400/20 text-2xl">💻</div>
+            <div class="min-w-0">
+              <p class="text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400">Program Studi</p>
+              <p class="font-semibold">D4 Teknik Informatika</p>
+            </div>
+          </div>
+
+          <div class="reveal card-glass flex items-center gap-4 rounded-2xl p-5 shadow hover:-translate-y-1 hover:shadow-xl" style="transition-delay:.1s">
+            <div class="w-12 h-12 shrink-0 grid place-items-center rounded-xl bg-pink-400/20 text-2xl">📚</div>
+            <div class="min-w-0">
+              <p class="text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400">Semester</p>
+              <p class="font-semibold">8</p>
+            </div>
+          </div>
+
+          <div class="reveal card-glass sm:col-span-2 flex items-center gap-4 rounded-2xl p-5 shadow hover:-translate-y-1 hover:shadow-xl" style="transition-delay:.15s">
+            <div class="w-12 h-12 shrink-0 grid place-items-center rounded-xl bg-purple-400/20 text-2xl">📍</div>
+            <div class="min-w-0">
+              <p class="text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400">Alamat</p>
+              <p class="font-semibold">Jl. Sariasih No.64, Sarijadi, Bandung</p>
+            </div>
+          </div>
+
+          <a href="mailto:info@ulbi.ac.id" class="reveal card-glass flex items-center gap-4 rounded-2xl p-5 shadow" style="transition-delay:.2s">
+            <div class="w-12 h-12 shrink-0 grid place-items-center rounded-xl bg-red-400/20 text-2xl">✉️</div>
+            <div class="min-w-0">
+              <p class="text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400">Email Kampus</p>
+              <p class="font-semibold truncate">info@ulbi.ac.id</p>
+            </div>
+            <span class="arrow ml-auto text-gray-400">→</span>
+          </a>
+
+          <a href="tel:+6281311110194" class="reveal card-glass flex items-center gap-4 rounded-2xl p-5 shadow" style="transition-delay:.25s">
+            <div class="w-12 h-12 shrink-0 grid place-items-center rounded-xl bg-green-400/20 text-2xl">📞</div>
+            <div class="min-w-0">
+              <p class="text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400">Telepon</p>
+              <p class="font-semibold">+62 813-1111-0194</p>
+            </div>
+            <span class="arrow ml-auto text-gray-400">→</span>
+          </a>
+
+        </div>
+      </section>
+
+      <!-- TOMBOL -->
+      <div class="reveal flex flex-wrap justify-center gap-3 mt-10">
+        <a href="https://ulbi.ac.id" target="_blank" rel="noopener"
+           class="px-5 py-2.5 rounded-xl font-semibold text-gray-900 bg-gradient-to-r from-yellow-400 to-orange-400 shadow-lg shadow-orange-500/20 hover:shadow-orange-500/40 hover:-translate-y-0.5 transition">
+          Kunjungi Website ULBI ↗
+        </a>
+        <a href="https://if.ulbi.ac.id/" target="_blank" rel="noopener"
+           class="px-5 py-2.5 rounded-xl font-semibold border border-gray-300 dark:border-white/20 hover:bg-gray-100 dark:hover:bg-white/10 hover:-translate-y-0.5 transition">
+          Prodi Teknik Informatika ↗
+        </a>
+      </div>
+
     </div>
   </main>
 
   <!-- FOOTER -->
-  <footer class="bg-gray-900 text-center text-gray-400 py-4">
-    &copy; 2026 Wafid Adzka.
+  <footer class="border-t border-gray-200 dark:border-white/10 bg-white dark:bg-gray-900 text-center text-gray-500 dark:text-gray-400 py-6 text-sm">
+    &copy; 2026 Wafid Adzka. Dibuat dengan ☕ di Bandung.
   </footer>
 
-  <!-- SCRIPT DARK MODE -->
+  <!-- SCRIPT -->
   <script>
-    const toggleBtn = document.getElementById('toggle-dark');
-    toggleBtn?.addEventListener('click', () => {
-      document.documentElement.classList.toggle('dark');
-      localStorage.setItem('theme',
-        document.documentElement.classList.contains('dark') ? 'dark' : 'light'
-      );
-    });
-
-    window.addEventListener('DOMContentLoaded', () => {
-      const saved = localStorage.getItem('theme');
-      if (saved === 'dark') {
-        document.documentElement.classList.add('dark');
-      }
-    });
-
+    // Menu mobile
     document.getElementById('menu-toggle')?.addEventListener('click', () => {
       document.getElementById('mobile-menu')?.classList.toggle('hidden');
     });
+
+    // Dark mode (desktop & mobile)
+    function toggleTheme() {
+      document.documentElement.classList.toggle('dark');
+      localStorage.setItem('theme',
+        document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+    }
+    document.getElementById('toggle-dark')?.addEventListener('click', toggleTheme);
+    document.getElementById('toggle-dark-m')?.addEventListener('click', toggleTheme);
+
+    // Animasi muncul saat di-scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
   </script>
 </body>
 </html>

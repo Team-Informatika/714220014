@@ -4,83 +4,305 @@
   <meta charset="UTF-8" />
   <title>Kontak – Wafid</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Hubungi Wafid Adzka Haifan Mukhayyar melalui email, WhatsApp, dan media sosial." />
+
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    tailwind.config = { darkMode: 'class' };
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'] },
+          keyframes: {
+            float: { '0%,100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-14px)' } },
+            blob: {
+              '0%,100%': { transform: 'translate(0,0) scale(1)' },
+              '33%': { transform: 'translate(30px,-40px) scale(1.1)' },
+              '66%': { transform: 'translate(-20px,20px) scale(0.95)' }
+            }
+          },
+          animation: {
+            float: 'float 5s ease-in-out infinite',
+            blob: 'blob 12s ease-in-out infinite'
+          }
+        }
+      }
+    };
   </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Terapkan tema sebelum render agar tidak berkedip -->
+  <script>
+    (function () {
+      const saved = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (saved === 'dark' || (!saved && prefersDark)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+
+  <style>
+    html { scroll-behavior: smooth; }
+
+    .gradient-text {
+      background: linear-gradient(90deg, #facc15, #f97316, #ec4899);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.show { opacity: 1; transform: none; }
+
+    .nav-link { position: relative; padding: 4px 0; transition: color .2s; }
+    .nav-link::after {
+      content: ''; position: absolute; left: 0; bottom: -2px; height: 2px; width: 0;
+      background: linear-gradient(90deg, #facc15, #f97316); transition: width .25s ease;
+    }
+    .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+    .nav-link.active { color: #eab308; font-weight: 600; }
+
+    .card-glass {
+      background: rgba(255,255,255,.7);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(229,231,235,.7);
+      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+    }
+    .dark .card-glass { background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.1); }
+    a.card-glass:hover { transform: translateY(-4px); box-shadow: 0 18px 40px -12px rgba(249,115,22,.35); border-color: rgba(250,204,21,.6); }
+    a.card-glass:hover .arrow { transform: translateX(4px); }
+    .arrow { transition: transform .25s ease; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .animate-blob, .animate-float { animation: none !important; }
+    }
+  </style>
 </head>
-<body class="bg-white text-gray-900 dark:bg-gray-900 dark:text-white font-sans min-h-screen flex flex-col">
+<body class="bg-gray-50 text-gray-900 dark:bg-gray-950 dark:text-gray-100 font-sans min-h-screen flex flex-col antialiased transition-colors duration-300">
 
   <!-- HEADER -->
-  <header class="bg-white dark:bg-gray-800 shadow sticky top-0 z-50">
+  <header class="bg-white/70 dark:bg-gray-900/70 backdrop-blur-lg border-b border-gray-200/60 dark:border-white/10 sticky top-0 z-50">
     <div class="max-w-6xl mx-auto flex items-center justify-between px-4 py-4">
-      <h1 class="text-xl font-bold">WafidAdzka</h1>
-      <nav class="hidden md:flex space-x-4">
-        <a href="index.html">Home</a>
-        <a href="about.html">Tentang</a>
-        <a href="skills.html">Skills</a>
-        <a href="projects.html">Proyek</a>
-        <a href="kampus.html">Kampus</a>
-        <a href="organisasi.html">Organisasi</a>
-        <a href="Intership.html" >Internship</a>
-        <a href="contact.html">Kontak</a>
-        <button id="toggle-dark">🌓</button>
+      <a href="index.html" class="text-xl font-extrabold tracking-tight">
+        Wafid<span class="gradient-text">Adzka</span>
+      </a>
+      <nav class="hidden md:flex items-center space-x-6 text-sm font-medium">
+        <a class="nav-link" href="index.html">Home</a>
+        <a class="nav-link" href="about.html">Tentang</a>
+        <a class="nav-link" href="skills.html">Skills</a>
+        <a class="nav-link" href="projects.html">Proyek</a>
+        <a class="nav-link" href="kampus.html">Kampus</a>
+        <a class="nav-link" href="organisasi.html">Organisasi</a>
+        <a class="nav-link" href="Intership.html">Internship</a>
+        <a class="nav-link active" href="contact.html">Kontak</a>
+        <button id="toggle-dark" aria-label="Ganti tema"
+                class="w-9 h-9 rounded-full bg-gray-200 dark:bg-gray-800 hover:scale-110 transition">🌓</button>
       </nav>
-      <button class="md:hidden" id="menu-toggle">☰</button>
+      <div class="md:hidden flex items-center gap-2">
+        <button id="toggle-dark-m" aria-label="Ganti tema"
+                class="w-9 h-9 rounded-full bg-gray-200 dark:bg-gray-800">🌓</button>
+        <button id="menu-toggle" aria-label="Buka menu" class="w-9 h-9 text-xl">☰</button>
+      </div>
     </div>
 
-    <div id="mobile-menu" class="md:hidden hidden px-4 pb-4">
-      <a href="index.html" class="block py-1">Home</a>
-      <a href="about.html" class="block py-1">Tentang</a>
-      <a href="skills.html" class="block py-1">Skills</a>
-      <a href="projects.html" class="block py-1">Proyek</a>
-      <a href="kampus.html" class="block py-1">Kampus</a>
-      <a href="organisasi.html" class="block py-1">Organisasi</a>
-      <a href="Intership.html" class="block py-1">Internship</a>
-      <a href="contact.html" class="block py-1">Kontak</a>
+    <div id="mobile-menu" class="md:hidden hidden px-4 pb-4 text-sm font-medium">
+      <a href="index.html" class="block py-2">Home</a>
+      <a href="about.html" class="block py-2">Tentang</a>
+      <a href="skills.html" class="block py-2">Skills</a>
+      <a href="projects.html" class="block py-2">Proyek</a>
+      <a href="kampus.html" class="block py-2">Kampus</a>
+      <a href="organisasi.html" class="block py-2">Organisasi</a>
+      <a href="Intership.html" class="block py-2">Internship</a>
+      <a href="contact.html" class="block py-2 text-yellow-500 font-semibold">Kontak</a>
     </div>
   </header>
 
   <!-- MAIN -->
-  <main class="max-w-4xl mx-auto px-4 py-12 flex-grow">
-    <h2 class="text-3xl font-bold text-yellow-400 mb-6">📬 Kontak Saya</h2>
-    <ul class="text-lg space-y-3 text-gray-700 dark:text-gray-300">
-      <li><img class="inline w-5 mr-2" src="https://img.icons8.com/ios-filled/50/user.png"/> <strong>Nama:</strong> Wafid Adzka Haifan Mukhayyar</li>
-      <li><img class="inline w-5 mr-2" src="https://img.icons8.com/ios-filled/50/marker.png"/> <strong>Domisili:</strong> Bandung</li>
-      <li><img class="inline w-5 mr-2" src="https://img.icons8.com/ios-filled/50/email.png"/> <strong>Email:</strong> <a href="mailto:adzkamukhayyar@gmail.com" class="text-blue-400 hover:underline">adzkamukhayyar@gmail.com</a></li>
-      <li><img class="inline w-5 mr-2" src="https://img.icons8.com/ios-filled/50/phone.png"/> <strong>Telepon/WA:</strong> <a href="https://wa.me/6285951552648" class="text-blue-400 hover:underline">+62 859-5155-2648</a></li>
-      <li><img class="inline w-5 mr-2" src="https://img.icons8.com/ios-filled/50/github.png"/> <strong>GitHub:</strong> <a href="https://github.com/wafidadzka2105" class="text-blue-400 hover:underline" target="_blank">wafidadzka2105</a></li>
-      <li><img class="inline w-5 mr-2" src="https://img.icons8.com/ios-filled/50/instagram-new.png"/> <strong>Instagram:</strong> <a href="https://www.instagram.com/wafidadzka_/" class="text-blue-400 hover:underline" target="_blank">@wafidadzka_</a></li>
-      <li><img class="inline w-5 mr-2" src="https://img.icons8.com/ios-filled/50/tiktok.png"/> <strong>TikTok:</strong> <a href="https://www.tiktok.com/@wafidadzka" class="text-blue-400 hover:underline" target="_blank">@wafidadzka_</a></li>
-      <li><img class="inline w-5 mr-2" src="https://img.icons8.com/ios-filled/50/twitterx--v1.png"/> <strong>X (Twitter):</strong> <a href="https://x.com/wafidadzka_" class="text-blue-400 hover:underline" target="_blank">@wafidadzka_</a></li>
-      <li><img class="inline w-5 mr-2" src="https://img.icons8.com/ios-filled/50/linkedin.png"/> <strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/WafidAdzka" class="text-blue-400 hover:underline" target="_blank">WafidAdzka</a></li>
-      <li><img class="inline w-5 mr-2" src="https://img.icons8.com/ios-filled/50/address.png"/> <strong>Alamat:</strong> Jl. Budhi VII, Sukaraja, Cicendo, Bandung</li>
-    </ul>
+  <main class="relative flex-grow overflow-hidden">
+
+    <!-- Dekorasi latar -->
+    <div class="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+      <div class="absolute -top-24 -left-24 w-96 h-96 bg-yellow-400/30 dark:bg-yellow-500/15 rounded-full blur-3xl animate-blob"></div>
+      <div class="absolute top-40 -right-24 w-96 h-96 bg-pink-400/30 dark:bg-pink-500/15 rounded-full blur-3xl animate-blob" style="animation-delay:-4s"></div>
+      <div class="absolute bottom-0 left-1/3 w-96 h-96 bg-sky-400/25 dark:bg-sky-500/10 rounded-full blur-3xl animate-blob" style="animation-delay:-8s"></div>
+    </div>
+
+    <div class="max-w-4xl mx-auto px-4 py-14 md:py-20">
+
+      <!-- Judul -->
+      <div class="text-center mb-12 reveal">
+        <span class="inline-block text-xs font-semibold tracking-widest uppercase px-3 py-1 rounded-full bg-yellow-400/20 text-yellow-600 dark:text-yellow-300 mb-4">
+          Yuk ngobrol 💬
+        </span>
+        <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight">
+          Kontak <span class="gradient-text">Saya</span>
+        </h2>
+        <p class="mt-4 text-gray-600 dark:text-gray-400 max-w-xl mx-auto">
+          Punya pertanyaan, tawaran kerja sama, atau sekadar ingin menyapa? Hubungi saya lewat salah satu kanal di bawah ini.
+        </p>
+
+        <div class="flex flex-wrap justify-center gap-3 mt-7">
+          <a href="https://wa.me/6285951552648" target="_blank" rel="noopener"
+             class="px-5 py-2.5 rounded-xl font-semibold text-gray-900 bg-gradient-to-r from-yellow-400 to-orange-400 shadow-lg shadow-orange-500/20 hover:shadow-orange-500/40 hover:-translate-y-0.5 transition">
+            💬 Chat WhatsApp
+          </a>
+          <a href="mailto:adzkamukhayyar@gmail.com"
+             class="px-5 py-2.5 rounded-xl font-semibold border border-gray-300 dark:border-white/20 hover:bg-gray-100 dark:hover:bg-white/10 hover:-translate-y-0.5 transition">
+            ✉️ Kirim Email
+          </a>
+        </div>
+      </div>
+
+      <!-- KONTAK UTAMA -->
+      <section class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+        <a href="mailto:adzkamukhayyar@gmail.com" class="reveal card-glass group flex items-center gap-4 rounded-2xl p-5 shadow">
+          <div class="w-12 h-12 shrink-0 grid place-items-center rounded-xl bg-red-400/20 text-2xl">✉️</div>
+          <div class="min-w-0">
+            <p class="text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400">Email</p>
+            <p class="font-semibold truncate">adzkamukhayyar@gmail.com</p>
+          </div>
+          <span class="arrow ml-auto text-gray-400">→</span>
+        </a>
+
+        <a href="https://wa.me/6285951552648" target="_blank" rel="noopener" class="reveal card-glass group flex items-center gap-4 rounded-2xl p-5 shadow" style="transition-delay:.05s">
+          <div class="w-12 h-12 shrink-0 grid place-items-center rounded-xl bg-green-400/20 text-2xl">📱</div>
+          <div class="min-w-0">
+            <p class="text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400">Telepon / WhatsApp</p>
+            <p class="font-semibold">+62 859-5155-2648</p>
+          </div>
+          <span class="arrow ml-auto text-gray-400">→</span>
+        </a>
+
+        <div class="reveal card-glass flex items-center gap-4 rounded-2xl p-5 shadow" style="transition-delay:.1s">
+          <div class="w-12 h-12 shrink-0 grid place-items-center rounded-xl bg-sky-400/20 text-2xl">🧑</div>
+          <div class="min-w-0">
+            <p class="text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400">Nama</p>
+            <p class="font-semibold">Wafid Adzka Haifan Mukhayyar</p>
+          </div>
+        </div>
+
+        <div class="reveal card-glass flex items-center gap-4 rounded-2xl p-5 shadow" style="transition-delay:.15s">
+          <div class="w-12 h-12 shrink-0 grid place-items-center rounded-xl bg-purple-400/20 text-2xl">📍</div>
+          <div class="min-w-0">
+            <p class="text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400">Domisili</p>
+            <p class="font-semibold">Bandung</p>
+          </div>
+        </div>
+
+        <div class="reveal card-glass sm:col-span-2 flex items-center gap-4 rounded-2xl p-5 shadow" style="transition-delay:.2s">
+          <div class="w-12 h-12 shrink-0 grid place-items-center rounded-xl bg-yellow-400/20 text-2xl">🏠</div>
+          <div class="min-w-0">
+            <p class="text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400">Alamat</p>
+            <p class="font-semibold">Jl. Budhi VII, Sukaraja, Cicendo, Bandung</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- MEDIA SOSIAL -->
+      <section class="mt-12">
+        <h3 class="reveal text-2xl font-bold mb-6 text-center sm:text-left">
+          Media <span class="gradient-text">Sosial</span>
+        </h3>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+
+          <a href="https://github.com/wafidadzka2105" target="_blank" rel="noopener" class="reveal card-glass group flex items-center gap-4 rounded-2xl p-5 shadow">
+            <div class="w-12 h-12 shrink-0 grid place-items-center rounded-xl bg-gray-400/20">
+              <img src="https://cdn.simpleicons.org/github/8b949e" alt="GitHub" class="w-6 h-6" />
+            </div>
+            <div class="min-w-0">
+              <p class="text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400">GitHub</p>
+              <p class="font-semibold truncate">wafidadzka2105</p>
+            </div>
+            <span class="arrow ml-auto text-gray-400">↗</span>
+          </a>
+
+          <a href="https://www.instagram.com/wafidadzka_/" target="_blank" rel="noopener" class="reveal card-glass group flex items-center gap-4 rounded-2xl p-5 shadow" style="transition-delay:.05s">
+            <div class="w-12 h-12 shrink-0 grid place-items-center rounded-xl bg-pink-400/20">
+              <img src="https://cdn.simpleicons.org/instagram/E4405F" alt="Instagram" class="w-6 h-6" />
+            </div>
+            <div class="min-w-0">
+              <p class="text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400">Instagram</p>
+              <p class="font-semibold truncate">@wafidadzka_</p>
+            </div>
+            <span class="arrow ml-auto text-gray-400">↗</span>
+          </a>
+
+          <a href="https://www.tiktok.com/@wafidadzka" target="_blank" rel="noopener" class="reveal card-glass group flex items-center gap-4 rounded-2xl p-5 shadow" style="transition-delay:.1s">
+            <div class="w-12 h-12 shrink-0 grid place-items-center rounded-xl bg-cyan-400/20">
+              <img src="https://cdn.simpleicons.org/tiktok/25F4EE" alt="TikTok" class="w-6 h-6" />
+            </div>
+            <div class="min-w-0">
+              <p class="text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400">TikTok</p>
+              <p class="font-semibold truncate">@wafidadzka_</p>
+            </div>
+            <span class="arrow ml-auto text-gray-400">↗</span>
+          </a>
+
+          <a href="https://x.com/wafidadzka_" target="_blank" rel="noopener" class="reveal card-glass group flex items-center gap-4 rounded-2xl p-5 shadow" style="transition-delay:.15s">
+            <div class="w-12 h-12 shrink-0 grid place-items-center rounded-xl bg-gray-400/20">
+              <img src="https://cdn.simpleicons.org/x/8b949e" alt="X" class="w-6 h-6" />
+            </div>
+            <div class="min-w-0">
+              <p class="text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400">X (Twitter)</p>
+              <p class="font-semibold truncate">@wafidadzka_</p>
+            </div>
+            <span class="arrow ml-auto text-gray-400">↗</span>
+          </a>
+
+          <a href="https://www.linkedin.com/in/WafidAdzka" target="_blank" rel="noopener" class="reveal card-glass group flex items-center gap-4 rounded-2xl p-5 shadow" style="transition-delay:.2s">
+            <div class="w-12 h-12 shrink-0 grid place-items-center rounded-xl bg-blue-400/20">
+              <img src="https://cdn.simpleicons.org/linkedin/0A66C2" alt="LinkedIn" class="w-6 h-6" />
+            </div>
+            <div class="min-w-0">
+              <p class="text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400">LinkedIn</p>
+              <p class="font-semibold truncate">WafidAdzka</p>
+            </div>
+            <span class="arrow ml-auto text-gray-400">↗</span>
+          </a>
+
+        </div>
+      </section>
+
+    </div>
   </main>
 
   <!-- FOOTER -->
-  <footer class="bg-gray-900 text-center text-gray-400 py-4">
-    &copy; 2026 Wafid Adzka.
+  <footer class="border-t border-gray-200 dark:border-white/10 bg-white dark:bg-gray-900 text-center text-gray-500 dark:text-gray-400 py-6 text-sm">
+    &copy; 2026 Wafid Adzka. Dibuat dengan ☕ di Bandung.
   </footer>
 
   <!-- SCRIPT -->
   <script>
+    // Menu mobile
     document.getElementById('menu-toggle')?.addEventListener('click', () => {
       document.getElementById('mobile-menu')?.classList.toggle('hidden');
     });
 
-    document.getElementById('toggle-dark')?.addEventListener('click', () => {
+    // Dark mode (desktop & mobile)
+    function toggleTheme() {
       document.documentElement.classList.toggle('dark');
       localStorage.setItem('theme',
         document.documentElement.classList.contains('dark') ? 'dark' : 'light');
-    });
+    }
+    document.getElementById('toggle-dark')?.addEventListener('click', toggleTheme);
+    document.getElementById('toggle-dark-m')?.addEventListener('click', toggleTheme);
 
-    window.addEventListener('DOMContentLoaded', () => {
-      const theme = localStorage.getItem('theme');
-      if (theme === 'dark') {
-        document.documentElement.classList.add('dark');
-      }
-    });
+    // Animasi muncul saat di-scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
   </script>
 </body>
 </html>
