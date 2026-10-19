@@ -93,6 +93,9 @@
     }
     .dark .photo-pill.active { color: #fde047; }
 
+    /* Kunci scroll halaman saat preview CV terbuka */
+    body.modal-open { overflow: hidden; }
+
     @media (prefers-reduced-motion: reduce) {
       .reveal { opacity: 1; transform: none; transition: none; }
       .ring-spin, .animate-blob, .animate-float, .cursor::after { animation: none !important; }
@@ -196,10 +199,10 @@
         </p>
 
         <div class="flex justify-center gap-3 flex-wrap">
-          <a href="assets/CV_ATS.pdf" download
-             class="px-6 py-3 rounded-xl font-semibold text-gray-900 bg-gradient-to-r from-yellow-400 to-orange-400 shadow-lg shadow-orange-500/20 hover:shadow-orange-500/40 hover:-translate-y-0.5 transition">
-            ⬇️ Download CV
-          </a>
+          <button id="cv-open" type="button" aria-haspopup="dialog" aria-controls="cv-modal"
+                  class="px-6 py-3 rounded-xl font-semibold text-gray-900 bg-gradient-to-r from-yellow-400 to-orange-400 shadow-lg shadow-orange-500/20 hover:shadow-orange-500/40 hover:-translate-y-0.5 transition">
+            📄 Preview CV
+          </button>
           <a href="contact.html"
              class="px-6 py-3 rounded-xl font-semibold border border-gray-300 dark:border-white/20 hover:bg-gray-100 dark:hover:bg-white/10 hover:-translate-y-0.5 transition">
             📬 Hubungi Saya
@@ -283,6 +286,28 @@
       </div>
     </section>
   </main>
+
+  <!-- MODAL PREVIEW CV -->
+  <div id="cv-modal" class="hidden fixed inset-0 z-[60] flex items-center justify-center p-3 sm:p-6"
+       role="dialog" aria-modal="true" aria-labelledby="cv-title">
+    <div id="cv-backdrop" class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
+
+    <div class="relative flex flex-col w-full max-w-4xl h-[88vh] rounded-2xl overflow-hidden bg-white dark:bg-gray-900 border border-gray-200 dark:border-white/10 shadow-2xl">
+      <div class="flex items-center justify-between gap-3 px-4 py-3 border-b border-gray-200 dark:border-white/10">
+        <h3 id="cv-title" class="font-bold">Curriculum Vitae</h3>
+        <div class="flex items-center gap-2">
+          <a href="assets/CV_ATS.pdf" target="_blank" rel="noopener"
+             class="px-3 py-1.5 rounded-lg text-xs font-semibold border border-gray-300 dark:border-white/20 hover:bg-gray-100 dark:hover:bg-white/10 transition">
+            Buka di tab baru ↗
+          </a>
+          <button id="cv-close" type="button" aria-label="Tutup preview CV"
+                  class="w-9 h-9 rounded-full bg-gray-200 dark:bg-gray-800 hover:scale-110 transition text-lg leading-none">✕</button>
+        </div>
+      </div>
+
+      <iframe id="cv-frame" title="Preview CV Wafid Adzka" class="flex-1 w-full bg-gray-100 dark:bg-gray-800" src="about:blank"></iframe>
+    </div>
+  </div>
 
   <!-- FOOTER -->
   <footer class="border-t border-gray-200 dark:border-white/10 bg-white dark:bg-gray-900 text-center text-gray-500 dark:text-gray-400 py-6 text-sm">
@@ -372,6 +397,37 @@
         current = p.dataset.photo;
         setPhoto(current);
       }));
+    })();
+
+    // Preview CV (modal)
+    (function () {
+      const CV_URL = 'assets/CV_ATS.pdf#view=FitH';
+      const modal = document.getElementById('cv-modal');
+      const frame = document.getElementById('cv-frame');
+      const openBtn = document.getElementById('cv-open');
+      const closeBtn = document.getElementById('cv-close');
+      const backdrop = document.getElementById('cv-backdrop');
+      if (!modal || !frame || !openBtn) return;
+
+      function openModal() {
+        if (frame.getAttribute('src') === 'about:blank') frame.setAttribute('src', CV_URL); // dimuat saat pertama dibuka
+        modal.classList.remove('hidden');
+        document.body.classList.add('modal-open');
+        closeBtn?.focus();
+      }
+
+      function closeModal() {
+        modal.classList.add('hidden');
+        document.body.classList.remove('modal-open');
+        openBtn.focus();
+      }
+
+      openBtn.addEventListener('click', openModal);
+      closeBtn?.addEventListener('click', closeModal);
+      backdrop?.addEventListener('click', closeModal);
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !modal.classList.contains('hidden')) closeModal();
+      });
     })();
   </script>
 </body>
