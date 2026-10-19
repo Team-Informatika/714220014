@@ -73,9 +73,14 @@
     }
     @keyframes spin { to { transform: rotate(360deg); } }
 
+    /* Bar IPK: terisi sampai lebar --w saat muncul di layar */
+    .bar-fill { width: 0; transition: width 1.2s cubic-bezier(.22,1,.36,1) .3s; }
+    .reveal.show .bar-fill { width: var(--w); }
+
     @media (prefers-reduced-motion: reduce) {
       .reveal { opacity: 1; transform: none; transition: none; }
       .ring-spin, .animate-blob, .animate-float { animation: none !important; }
+      .bar-fill { width: var(--w); transition: none; }
     }
   </style>
 </head>
@@ -167,7 +172,7 @@
               rapi, nyaman dipakai, dan enak dilihat, sekaligus mengabadikan momen lewat kamera. Saat ini saya siap
               memulai karier dan terbuka untuk peluang baru.
             </p>
-                 
+
             <!-- Tag passion -->
             <div class="flex flex-wrap justify-center md:justify-start gap-2">
               <span class="px-3 py-1.5 rounded-full text-sm font-medium bg-yellow-400/20 text-yellow-700 dark:text-yellow-300 border border-yellow-400/30 hover:-translate-y-0.5 transition">💻 Frontend Development</span>
@@ -191,8 +196,8 @@
         </div>
       </section>
 
-      <!-- STATISTIK SINGKAT -->
-      <section class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-8">
+      <!-- STATISTIK SINGKAT (4 kotak sejajar) -->
+      <section class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8">
         <div class="reveal text-center bg-white/70 dark:bg-white/5 backdrop-blur-xl border border-gray-200/70 dark:border-white/10 rounded-2xl p-5 shadow hover:-translate-y-1 hover:shadow-xl transition">
           <p class="text-3xl font-extrabold gradient-text">8</p>
           <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Semester</p>
@@ -205,21 +210,22 @@
           <p class="text-3xl font-extrabold gradient-text">ULBI</p>
           <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Bandung, Jawa Barat</p>
         </div>
-        <div class="reveal text-center bg-white/70 dark:bg-white/5 backdrop-blur-xl border border-gray-200/70 dark:border-white/10 rounded-2xl p-5 shadow hover:-translate-y-1 hover:shadow-xl transition" style="transition-delay:.2s">
+        <div class="reveal text-center bg-white/70 dark:bg-white/5 backdrop-blur-xl border border-gray-200/70 dark:border-white/10 rounded-2xl p-5 shadow hover:-translate-y-1 hover:shadow-xl transition" style="transition-delay:.3s">
           <p class="text-3xl font-extrabold gradient-text">3.31</p>
           <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">IPK</p>
         </div>
+      </section>
 
-        <!-- IPK BAR -->
-          <section class="reveal card-glass rounded-2xl shadow p-5 mt-4">
-            <div class="flex items-center justify-between mb-2 text-sm">
-              <span class="font-semibold">Indeks Prestasi Kumulatif</span>
-              <span class="text-gray-500 dark:text-gray-400">3.31 / 4.00</span>
-            </div>
-              <div class="h-3 rounded-full bg-gray-200 dark:bg-white/10 overflow-hidden">
-              <div class="bar-fill h-full rounded-full bg-gradient-to-r from-yellow-400 via-orange-400 to-pink-500" style="--w: 82.75%"></div>
-              </div>
-            </section>
+      <!-- IPK BAR (lebar penuh di bawah 4 kotak) -->
+      <section class="reveal bg-white/70 dark:bg-white/5 backdrop-blur-xl border border-gray-200/70 dark:border-white/10 rounded-2xl shadow p-5 mt-4">
+        <div class="flex items-center justify-between mb-2 text-sm">
+          <span class="font-semibold">Indeks Prestasi Kumulatif</span>
+          <span class="text-gray-500 dark:text-gray-400">3.31 / 4.00</span>
+        </div>
+        <div class="h-3 rounded-full bg-gray-200 dark:bg-white/10 overflow-hidden"
+             role="progressbar" aria-valuemin="0" aria-valuemax="4" aria-valuenow="3.31" aria-label="Indeks Prestasi Kumulatif">
+          <div class="bar-fill h-full rounded-full bg-gradient-to-r from-yellow-400 via-orange-400 to-pink-500" style="--w: 82.75%"></div>
+        </div>
       </section>
 
       <!-- BIODATA -->
@@ -276,7 +282,7 @@
 
   <!-- FOOTER -->
   <footer class="border-t border-gray-200 dark:border-white/10 bg-white dark:bg-gray-900 text-center text-gray-500 dark:text-gray-400 py-6 text-sm">
-    &copy; 2026 Wafid Adzka. 
+    &copy; 2026 Wafid Adzka.
   </footer>
 
   <!-- Script -->
