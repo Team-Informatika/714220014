@@ -305,7 +305,9 @@
         </div>
       </div>
 
-      <iframe id="cv-frame" title="Preview CV Wafid Adzka" class="flex-1 w-full bg-gray-100 dark:bg-gray-800" src="about:blank"></iframe>
+      <div id="cv-pages" class="flex-1 overflow-auto bg-gray-100 dark:bg-gray-800 p-3 space-y-3" aria-label="Isi CV">
+        <p id="cv-status" class="text-center text-sm text-gray-500 dark:text-gray-400 py-10">Memuat CV…</p>
+      </div>
     </div>
   </div>
 
@@ -313,6 +315,9 @@
   <footer class="border-t border-gray-200 dark:border-white/10 bg-white dark:bg-gray-900 text-center text-gray-500 dark:text-gray-400 py-6 text-sm">
     &copy; 2026 Wafid Adzka.
   </footer>
+
+  <!-- PDF.js untuk preview CV -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 
   <!-- SCRIPT -->
   <script>
@@ -399,25 +404,84 @@
       }));
     })();
 
-    // Preview CV (modal)
+    // Preview CV (modal) – digambar dengan PDF.js, jadi tidak bergantung pada viewer PDF bawaan browser
     (function () {
-      const CV_URL = 'assets/CV_ATS.pdf#view=FitH';
+      const CV_URL = 'assets/CV_ATS.pdf';
       const modal = document.getElementById('cv-modal');
-      const frame = document.getElementById('cv-frame');
+      const pagesEl = document.getElementById('cv-pages');
       const openBtn = document.getElementById('cv-open');
       const closeBtn = document.getElementById('cv-close');
       const backdrop = document.getElementById('cv-backdrop');
-      if (!modal || !frame || !openBtn) return;
+      if (!modal || !pagesEl || !openBtn) return;
+
+      let pdfDoc = null;
+      let loading = false;
+      let renderToken = 0;
+
+      function showMessage(text) {
+        pagesEl.innerHTML = '';
+        const p = document.createElement('p');
+        p.className = 'text-center text-sm text-gray-500 dark:text-gray-400 py-10 px-4';
+        p.textContent = text;
+        pagesEl.appendChild(p);
+      }
+
+      async function renderAll() {
+        if (!pdfDoc) return;
+        const token = ++renderToken;
+        const available = pagesEl.clientWidth - 24;
+        if (available <= 0) return;
+        const dpr = window.devicePixelRatio || 1;
+        pagesEl.innerHTML = '';
+
+        for (let n = 1; n <= pdfDoc.numPages; n++) {
+          const page = await pdfDoc.getPage(n);
+          if (token !== renderToken) return; // dibatalkan oleh render yang lebih baru
+
+          const base = page.getViewport({ scale: 1 });
+          const cssScale = Math.min(available / base.width, 2);
+          const viewport = page.getViewport({ scale: cssScale * dpr });
+
+          const canvas = document.createElement('canvas');
+          canvas.width = Math.floor(viewport.width);
+          canvas.height = Math.floor(viewport.height);
+          canvas.style.width = Math.floor(viewport.width / dpr) + 'px';
+          canvas.style.height = Math.floor(viewport.height / dpr) + 'px';
+          canvas.className = 'block mx-auto bg-white shadow-lg';
+          canvas.setAttribute('role', 'img');
+          canvas.setAttribute('aria-label', 'CV halaman ' + n);
+          pagesEl.appendChild(canvas);
+
+          await page.render({ canvasContext: canvas.getContext('2d'), viewport }).promise;
+        }
+      }
+
+      async function loadPdf() {
+        if (pdfDoc || loading) return;
+        if (!window.pdfjsLib) {
+          showMessage('Preview tidak bisa dimuat. Silakan klik "Buka di tab baru".');
+          return;
+        }
+        loading = true;
+        showMessage('Memuat CV…');
+        try {
+          pdfjsLib.GlobalWorkerOptions.workerSrc =
+            'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+          pdfDoc = await pdfjsLib.getDocument(CV_URL).promise;
+          await renderAll();
+        } catch (err) {
+          console.error('Gagal memuat CV:', err);
+          showMessage('CV gagal dimuat. Pastikan file assets/CV_ATS.pdf ada dan halaman dibuka lewat server (bukan file://), atau klik "Buka di tab baru".');
+        } finally {
+          loading = false;
+        }
+      }
 
       function openModal() {
-        // Tampilkan modal DULU, baru muat PDF. Jika PDF dimuat saat iframe masih
-        // tersembunyi (display:none), viewer bawaan Chrome sering menampilkan halaman kosong.
         modal.classList.remove('hidden');
         document.body.classList.add('modal-open');
-        if (frame.getAttribute('src') === 'about:blank') {
-          requestAnimationFrame(() => frame.setAttribute('src', CV_URL));
-        }
         closeBtn?.focus();
+        if (pdfDoc) renderAll(); else loadPdf();
       }
 
       function closeModal() {
@@ -431,6 +495,15 @@
       backdrop?.addEventListener('click', closeModal);
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && !modal.classList.contains('hidden')) closeModal();
+      });
+
+      // Sesuaikan ukuran halaman saat jendela diubah
+      let resizeTimer;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+          if (!modal.classList.contains('hidden') && pdfDoc) renderAll();
+        }, 200);
       });
     })();
   </script>
