@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <title>Skills – Wafid</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Keahlian Wafid Adzka: HTML, CSS, JavaScript, Tailwind CSS, Git, MySQL, MongoDB, REST API, UI/UX, dan tools kreatif." />
+  <meta name="description" content="Keahlian Wafid Adzka: HTML, CSS, JavaScript, Tailwind CSS, Git, GitLab, MySQL, MongoDB, REST API, Postman, Microsoft Office, Figma, UI/UX, dan tools kreatif." />
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -157,12 +157,14 @@
         <button class="chip px-4 py-2 rounded-full text-sm font-semibold border border-gray-300 dark:border-white/20" data-filter="frontend">💻 Frontend</button>
         <button class="chip px-4 py-2 rounded-full text-sm font-semibold border border-gray-300 dark:border-white/20" data-filter="tools">🔧 Version Control</button>
         <button class="chip px-4 py-2 rounded-full text-sm font-semibold border border-gray-300 dark:border-white/20" data-filter="backend">🗄️ Data &amp; API</button>
+        <button class="chip px-4 py-2 rounded-full text-sm font-semibold border border-gray-300 dark:border-white/20" data-filter="office">📊 Office</button>
         <button class="chip px-4 py-2 rounded-full text-sm font-semibold border border-gray-300 dark:border-white/20" data-filter="desain">🎨 Desain &amp; Kreatif</button>
       </div>
 
       <!-- GRID SKILL -->
-      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5 text-center" id="skill-grid">
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-5 text-center" id="skill-grid">
 
+        <!-- ===== FRONTEND ===== -->
         <div class="skill-item reveal skill-card card-glass rounded-2xl p-5 shadow" data-cat="frontend">
           <div class="icon-tile mx-auto w-20 h-20 grid place-items-center rounded-2xl bg-white shadow-md">
             <img src="https://img.icons8.com/color/96/html-5--v1.png" alt="HTML" class="w-12 h-12" loading="lazy" />
@@ -195,6 +197,7 @@
           <p class="text-xs text-gray-500 dark:text-gray-400">Frontend</p>
         </div>
 
+        <!-- ===== VERSION CONTROL ===== -->
         <div class="skill-item reveal skill-card card-glass rounded-2xl p-5 shadow" data-cat="tools" style="transition-delay:.16s">
           <div class="icon-tile mx-auto w-20 h-20 grid place-items-center rounded-2xl bg-white shadow-md">
             <img src="https://img.icons8.com/color/96/git.png" alt="Git" class="w-12 h-12" loading="lazy" />
@@ -211,6 +214,16 @@
           <p class="text-xs text-gray-500 dark:text-gray-400">Version Control</p>
         </div>
 
+        <div class="skill-item reveal skill-card card-glass rounded-2xl p-5 shadow" data-cat="tools" style="transition-delay:.04s">
+          <div class="icon-tile mx-auto w-20 h-20 grid place-items-center rounded-2xl bg-white shadow-md">
+            <img src="https://img.icons8.com/color/96/gitlab.png" alt="GitLab" class="w-12 h-12" loading="lazy"
+                 onerror="this.onerror=null;this.replaceWith(Object.assign(document.createElement('span'),{className:'text-2xl font-extrabold text-orange-500',textContent:'GL'}))" />
+          </div>
+          <p class="mt-3 font-semibold">GitLab</p>
+          <p class="text-xs text-gray-500 dark:text-gray-400">Version Control</p>
+        </div>
+
+        <!-- ===== DATA & API ===== -->
         <div class="skill-item reveal skill-card card-glass rounded-2xl p-5 shadow" data-cat="backend" style="transition-delay:.04s">
           <div class="icon-tile mx-auto w-20 h-20 grid place-items-center rounded-2xl bg-white shadow-md">
             <img src="https://img.icons8.com/ios-filled/100/4479A1/mysql-logo.png" alt="MySQL" class="w-12 h-12" loading="lazy" />
@@ -235,6 +248,44 @@
           <p class="text-xs text-gray-500 dark:text-gray-400">Integrasi</p>
         </div>
 
+        <div class="skill-item reveal skill-card card-glass rounded-2xl p-5 shadow" data-cat="backend" style="transition-delay:.16s">
+          <div class="icon-tile mx-auto w-20 h-20 grid place-items-center rounded-2xl bg-white shadow-md">
+            <img src="https://img.icons8.com/color/96/postman-api.png" alt="Postman" class="w-12 h-12" loading="lazy"
+                 onerror="this.onerror=null;this.replaceWith(Object.assign(document.createElement('span'),{className:'text-2xl font-extrabold text-orange-600',textContent:'Pm'}))" />
+          </div>
+          <p class="mt-3 font-semibold">Postman</p>
+          <p class="text-xs text-gray-500 dark:text-gray-400">API Testing</p>
+        </div>
+
+        <!-- ===== OFFICE ===== -->
+        <div class="skill-item reveal skill-card card-glass rounded-2xl p-5 shadow" data-cat="office">
+          <div class="icon-tile mx-auto w-20 h-20 grid place-items-center rounded-2xl bg-white shadow-md">
+            <img src="https://img.icons8.com/color/96/microsoft-word-2019--v2.png" alt="Microsoft Word" class="w-12 h-12" loading="lazy"
+                 onerror="this.onerror=null;this.replaceWith(Object.assign(document.createElement('span'),{className:'text-2xl font-extrabold text-blue-600',textContent:'W'}))" />
+          </div>
+          <p class="mt-3 font-semibold">Word</p>
+          <p class="text-xs text-gray-500 dark:text-gray-400">Microsoft Office</p>
+        </div>
+
+        <div class="skill-item reveal skill-card card-glass rounded-2xl p-5 shadow" data-cat="office" style="transition-delay:.04s">
+          <div class="icon-tile mx-auto w-20 h-20 grid place-items-center rounded-2xl bg-white shadow-md">
+            <img src="https://img.icons8.com/color/96/microsoft-excel-2019--v1.png" alt="Microsoft Excel" class="w-12 h-12" loading="lazy"
+                 onerror="this.onerror=null;this.replaceWith(Object.assign(document.createElement('span'),{className:'text-2xl font-extrabold text-green-600',textContent:'X'}))" />
+          </div>
+          <p class="mt-3 font-semibold">Excel</p>
+          <p class="text-xs text-gray-500 dark:text-gray-400">Microsoft Office</p>
+        </div>
+
+        <div class="skill-item reveal skill-card card-glass rounded-2xl p-5 shadow" data-cat="office" style="transition-delay:.08s">
+          <div class="icon-tile mx-auto w-20 h-20 grid place-items-center rounded-2xl bg-white shadow-md">
+            <img src="https://img.icons8.com/color/96/microsoft-powerpoint-2019--v2.png" alt="Microsoft PowerPoint" class="w-12 h-12" loading="lazy"
+                 onerror="this.onerror=null;this.replaceWith(Object.assign(document.createElement('span'),{className:'text-2xl font-extrabold text-orange-600',textContent:'P'}))" />
+          </div>
+          <p class="mt-3 font-semibold">PowerPoint</p>
+          <p class="text-xs text-gray-500 dark:text-gray-400">Microsoft Office</p>
+        </div>
+
+        <!-- ===== DESAIN & KREATIF ===== -->
         <div class="skill-item reveal skill-card card-glass rounded-2xl p-5 shadow" data-cat="desain" style="transition-delay:.16s">
           <div class="icon-tile mx-auto w-20 h-20 grid place-items-center rounded-2xl bg-white shadow-md">
             <img src="https://img.icons8.com/fluency/96/design.png" alt="UI/UX" class="w-12 h-12" loading="lazy" />
@@ -245,13 +296,22 @@
 
         <div class="skill-item reveal skill-card card-glass rounded-2xl p-5 shadow" data-cat="desain">
           <div class="icon-tile mx-auto w-20 h-20 grid place-items-center rounded-2xl bg-white shadow-md">
+            <img src="https://img.icons8.com/color/96/figma--v1.png" alt="Figma" class="w-12 h-12" loading="lazy"
+                 onerror="this.onerror=null;this.replaceWith(Object.assign(document.createElement('span'),{className:'text-2xl font-extrabold text-purple-600',textContent:'F'}))" />
+          </div>
+          <p class="mt-3 font-semibold">Figma</p>
+          <p class="text-xs text-gray-500 dark:text-gray-400">UI Design</p>
+        </div>
+
+        <div class="skill-item reveal skill-card card-glass rounded-2xl p-5 shadow" data-cat="desain" style="transition-delay:.04s">
+          <div class="icon-tile mx-auto w-20 h-20 grid place-items-center rounded-2xl bg-white shadow-md">
             <img src="https://img.icons8.com/color/96/canva.png" alt="Canva" class="w-12 h-12" loading="lazy" />
           </div>
           <p class="mt-3 font-semibold">Canva</p>
           <p class="text-xs text-gray-500 dark:text-gray-400">Desain</p>
         </div>
 
-        <div class="skill-item reveal skill-card card-glass rounded-2xl p-5 shadow" data-cat="desain" style="transition-delay:.04s">
+        <div class="skill-item reveal skill-card card-glass rounded-2xl p-5 shadow" data-cat="desain" style="transition-delay:.08s">
           <div class="icon-tile mx-auto w-20 h-20 grid place-items-center rounded-2xl bg-white shadow-md">
             <img src="https://img.icons8.com/fluency/96/video-editing.png" alt="CapCut" class="w-12 h-12" loading="lazy" />
           </div>
@@ -259,12 +319,30 @@
           <p class="text-xs text-gray-500 dark:text-gray-400">Video Editing</p>
         </div>
 
-        <div class="skill-item reveal skill-card card-glass rounded-2xl p-5 shadow" data-cat="desain" style="transition-delay:.08s">
+        <div class="skill-item reveal skill-card card-glass rounded-2xl p-5 shadow" data-cat="desain" style="transition-delay:.12s">
           <div class="icon-tile mx-auto w-20 h-20 grid place-items-center rounded-2xl bg-white shadow-md">
             <img src="https://img.icons8.com/color/96/adobe-lightroom.png" alt="Lightroom" class="w-12 h-12" loading="lazy" />
           </div>
           <p class="mt-3 font-semibold">Lightroom</p>
           <p class="text-xs text-gray-500 dark:text-gray-400">Foto Editing</p>
+        </div>
+
+        <div class="skill-item reveal skill-card card-glass rounded-2xl p-5 shadow" data-cat="desain" style="transition-delay:.16s">
+          <div class="icon-tile mx-auto w-20 h-20 grid place-items-center rounded-2xl bg-white shadow-md">
+            <img src="https://img.icons8.com/color/96/adobe-photoshop--v1.png" alt="Adobe Photoshop" class="w-12 h-12" loading="lazy"
+                 onerror="this.onerror=null;this.replaceWith(Object.assign(document.createElement('span'),{className:'text-2xl font-extrabold text-sky-600',textContent:'Ps'}))" />
+          </div>
+          <p class="mt-3 font-semibold">Adobe Photoshop</p>
+          <p class="text-xs text-gray-500 dark:text-gray-400">Desain Grafis</p>
+        </div>
+
+        <div class="skill-item reveal skill-card card-glass rounded-2xl p-5 shadow" data-cat="desain">
+          <div class="icon-tile mx-auto w-20 h-20 grid place-items-center rounded-2xl bg-white shadow-md">
+            <img src="https://img.icons8.com/color/96/corel-draw.png" alt="CorelDRAW" class="w-12 h-12" loading="lazy"
+                 onerror="this.onerror=null;this.replaceWith(Object.assign(document.createElement('span'),{className:'text-2xl font-extrabold text-green-600',textContent:'Cd'}))" />
+          </div>
+          <p class="mt-3 font-semibold">CorelDRAW</p>
+          <p class="text-xs text-gray-500 dark:text-gray-400">Desain Vektor</p>
         </div>
 
       </div>
