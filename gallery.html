@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Gallery – Wafid</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Galeri hasil karya video dan foto Wafid Adzka." />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'] },
+          keyframes: {
+            blob: {
+              '0%,100%': { transform: 'translate(0,0) scale(1)' },
+              '33%': { transform: 'translate(30px,-40px) scale(1.1)' },
+              '66%': { transform: 'translate(-20px,20px) scale(0.95)' }
+            }
+          },
+          animation: { blob: 'blob 12s ease-in-out infinite' }
+        }
+      }
+    };
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Terapkan tema sebelum render agar tidak berkedip -->
+  <script>
+    (function () {
+      const saved = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (saved === 'dark' || (!saved && prefersDark)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+
+  <style>
+    html { scroll-behavior: smooth; }
+
+    .gradient-text {
+      background: linear-gradient(90deg, #facc15, #f97316, #ec4899);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.show { opacity: 1; transform: none; }
+
+    .nav-link { position: relative; padding: 4px 0; transition: color .2s; }
+    .nav-link::after {
+      content: ''; position: absolute; left: 0; bottom: -2px; height: 2px; width: 0;
+      background: linear-gradient(90deg, #facc15, #f97316); transition: width .25s ease;
+    }
+    .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+    .nav-link.active { color: #eab308; font-weight: 600; }
+
+    .card-glass {
+      background: rgba(255,255,255,.7);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(229,231,235,.7);
+      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+    }
+    .dark .card-glass { background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.1); }
+    a.card-glass:hover { transform: translateY(-4px); box-shadow: 0 18px 40px -12px rgba(249,115,22,.35); border-color: rgba(250,204,21,.6); }
+    a.card-glass:hover .arrow { transform: translateX(4px); }
+    a.card-glass:hover .play { transform: scale(1.1); }
+    .arrow, .play { transition: transform .25s ease; }
+
+    /* Foto */
+    .photo { position: relative; overflow: hidden; cursor: zoom-in; aspect-ratio: 4 / 3; }
+    .photo img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+    .photo:hover img { transform: scale(1.08); }
+    .photo .cap {
+      position: absolute; inset: auto 0 0 0; padding: 1.5rem .9rem .7rem; color: #fff; font-size: .8rem; font-weight: 600;
+      background: linear-gradient(to top, rgba(0,0,0,.65), transparent);
+      opacity: 0; transition: opacity .25s ease;
+    }
+    .photo:hover .cap { opacity: 1; }
+
+    .filter-btn { transition: all .2s ease; }
+    .filter-btn.active { background: linear-gradient(90deg, #facc15, #f97316); color: #111827; border-color: transparent; }
+
+    #lightbox { display: none; }
+    #lightbox.open { display: flex; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .animate-blob { animation: none !important; }
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-900 dark:bg-gray-950 dark:text-gray-100 font-sans min-h-screen flex flex-col antialiased transition-colors duration-300">
+
+  <!-- HEADER -->
+  <header class="bg-white/70 dark:bg-gray-900/70 backdrop-blur-lg border-b border-gray-200/60 dark:border-white/10 sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto flex items-center justify-between px-4 py-4">
+      <a href="index.html" class="text-xl font-extrabold tracking-tight">
+        Wafid<span class="gradient-text">Adzka</span>
+      </a>
+      <nav class="hidden md:flex items-center space-x-6 text-sm font-medium">
+        <a class="nav-link" href="index.html">Home</a>
+        <a class="nav-link" href="about.html">Tentang</a>
+        <a class="nav-link" href="skills.html">Skills</a>
+        <a class="nav-link" href="projects.html">Proyek</a>
+        <a class="nav-link" href="kampus.html">Kampus</a>
+        <a class="nav-link" href="organisasi.html">Organisasi</a>
+        <a class="nav-link" href="Intership.html">Internship</a>
+        <a class="nav-link active" href="gallery.html">Gallery</a>
+        <a class="nav-link" href="contact.html">Kontak</a>
+        <button id="toggle-dark" aria-label="Ganti tema"
+                class="w-9 h-9 rounded-full bg-gray-200 dark:bg-gray-800 hover:scale-110 transition">🌓</button>
+      </nav>
+      <div class="md:hidden flex items-center gap-2">
+        <button id="toggle-dark-m" aria-label="Ganti tema"
+                class="w-9 h-9 rounded-full bg-gray-200 dark:bg-gray-800">🌓</button>
+        <button id="menu-toggle" aria-label="Buka menu" class="w-9 h-9 text-xl">☰</button>
+      </div>
+    </div>
+
+    <div id="mobile-menu" class="md:hidden hidden px-4 pb-4 text-sm font-medium">
+      <a href="index.html" class="block py-2">Home</a>
+      <a href="about.html" class="block py-2">Tentang</a>
+      <a href="skills.html" class="block py-2">Skills</a>
+      <a href="projects.html" class="block py-2">Proyek</a>
+      <a href="kampus.html" class="block py-2">Kampus</a>
+      <a href="organisasi.html" class="block py-2">Organisasi</a>
+      <a href="Intership.html" class="block py-2">Internship</a>
+      <a href="gallery.html" class="block py-2 text-yellow-500 font-semibold">Gallery</a>
+      <a href="contact.html" class="block py-2">Kontak</a>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="relative flex-grow overflow-hidden">
+
+    <!-- Dekorasi latar -->
+    <div class="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+      <div class="absolute -top-24 -left-24 w-96 h-96 bg-yellow-400/30 dark:bg-yellow-500/15 rounded-full blur-3xl animate-blob"></div>
+      <div class="absolute top-40 -right-24 w-96 h-96 bg-pink-400/30 dark:bg-pink-500/15 rounded-full blur-3xl animate-blob" style="animation-delay:-4s"></div>
+      <div class="absolute bottom-0 left-1/3 w-96 h-96 bg-sky-400/25 dark:bg-sky-500/10 rounded-full blur-3xl animate-blob" style="animation-delay:-8s"></div>
+    </div>
+
+    <div class="max-w-5xl mx-auto px-4 py-14 md:py-20">
+
+      <!-- Judul -->
+      <div class="text-center mb-10 reveal">
+        <span class="inline-block text-xs font-semibold tracking-widest uppercase px-3 py-1 rounded-full bg-yellow-400/20 text-yellow-600 dark:text-yellow-300 mb-4">
+          Koleksi karya 📸
+        </span>
+        <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight">
+          <span class="gradient-text">Gallery</span> Karya
+        </h2>
+        <p class="text-gray-600 dark:text-gray-400 mt-3 max-w-xl mx-auto">
+          Kumpulan video dan foto hasil dokumentasi serta konten yang pernah saya buat.
+        </p>
+      </div>
+
+      <!-- Filter -->
+      <div class="reveal flex justify-center gap-2 mb-10" role="group" aria-label="Filter galeri">
+        <button class="filter-btn active px-4 py-2 rounded-full text-sm font-semibold border border-gray-300 dark:border-white/20" data-filter="all">Semua</button>
+        <button class="filter-btn px-4 py-2 rounded-full text-sm font-semibold border border-gray-300 dark:border-white/20" data-filter="video">🎬 Video</button>
+        <button class="filter-btn px-4 py-2 rounded-full text-sm font-semibold border border-gray-300 dark:border-white/20" data-filter="foto">📷 Foto</button>
+      </div>
+
+      <!-- VIDEO -->
+      <section id="sec-video" data-section="video">
+        <h3 class="reveal text-2xl font-bold mb-6 text-center sm:text-left">
+          Hasil Karya <span class="gradient-text">Video</span>
+        </h3>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+          <a href="https://www.instagram.com/reel/DRjD1WSgWis/?igsh=MXU5dzV1ZGtrNWg1dw==" target="_blank" rel="noopener"
+             class="reveal card-glass flex items-center gap-4 rounded-2xl p-5 shadow">
+            <div class="play w-12 h-12 shrink-0 grid place-items-center rounded-xl bg-gradient-to-br from-yellow-400 to-orange-500 text-white text-xl">▶</div>
+            <div class="min-w-0">
+              <p class="font-semibold">Konten Video 1</p>
+              <p class="text-sm text-gray-500 dark:text-gray-400">Tonton di Instagram</p>
+            </div>
+            <span class="arrow ml-auto text-gray-400">↗</span>
+          </a>
+
+          <a href="https://www.instagram.com/reel/DRgUi4pgXVJ/?igsh=MTVjd3h6cTA1M2k3OA==" target="_blank" rel="noopener"
+             class="reveal card-glass flex items-center gap-4 rounded-2xl p-5 shadow" style="transition-delay:.05s">
+            <div class="play w-12 h-12 shrink-0 grid place-items-center rounded-xl bg-gradient-to-br from-orange-400 to-pink-500 text-white text-xl">▶</div>
+            <div class="min-w-0">
+              <p class="font-semibold">Konten Video 2</p>
+              <p class="text-sm text-gray-500 dark:text-gray-400">Tonton di Instagram</p>
+            </div>
+            <span class="arrow ml-auto text-gray-400">↗</span>
+          </a>
+
+          <a href="https://www.instagram.com/reel/DSmYT4sgfgI/?igsh=c29oaGJtOGpvd2w2" target="_blank" rel="noopener"
+             class="reveal card-glass flex items-center gap-4 rounded-2xl p-5 shadow" style="transition-delay:.1s">
+            <div class="play w-12 h-12 shrink-0 grid place-items-center rounded-xl bg-gradient-to-br from-pink-400 to-purple-500 text-white text-xl">▶</div>
+            <div class="min-w-0">
+              <p class="font-semibold">Konten Video 3</p>
+              <p class="text-sm text-gray-500 dark:text-gray-400">Tonton di Instagram</p>
+            </div>
+            <span class="arrow ml-auto text-gray-400">↗</span>
+          </a>
+
+          <a href="https://www.instagram.com/reel/DUSNU4JAfn2/?igsh=MWt4OXpoY3c0MXA3eQ==" target="_blank" rel="noopener"
+             class="reveal card-glass flex items-center gap-4 rounded-2xl p-5 shadow" style="transition-delay:.15s">
+            <div class="play w-12 h-12 shrink-0 grid place-items-center rounded-xl bg-gradient-to-br from-purple-400 to-sky-500 text-white text-xl">▶</div>
+            <div class="min-w-0">
+              <p class="font-semibold">Konten Video 4</p>
+              <p class="text-sm text-gray-500 dark:text-gray-400">Tonton di Instagram</p>
+            </div>
+            <span class="arrow ml-auto text-gray-400">↗</span>
+          </a>
+
+          <a href="https://www.instagram.com/reel/Dela0JrBGNh/?srtk=MWs0c21yNGR3OXdmZg==" target="_blank" rel="noopener"
+             class="reveal card-glass flex items-center gap-4 rounded-2xl p-5 shadow" style="transition-delay:.2s">
+            <div class="play w-12 h-12 shrink-0 grid place-items-center rounded-xl bg-gradient-to-br from-sky-400 to-emerald-500 text-white text-xl">▶</div>
+            <div class="min-w-0">
+              <p class="font-semibold">Konten Video 5</p>
+              <p class="text-sm text-gray-500 dark:text-gray-400">Tonton di Instagram</p>
+            </div>
+            <span class="arrow ml-auto text-gray-400">↗</span>
+          </a>
+
+          <a href="https://www.instagram.com/reel/DeToXxYBk6x/?cplk=MW1yODhkbjR0OGZhcA==" target="_blank" rel="noopener"
+             class="reveal card-glass flex items-center gap-4 rounded-2xl p-5 shadow" style="transition-delay:.25s">
+            <div class="play w-12 h-12 shrink-0 grid place-items-center rounded-xl bg-gradient-to-br from-emerald-400 to-yellow-400 text-white text-xl">▶</div>
+            <div class="min-w-0">
+              <p class="font-semibold">Konten Video 6</p>
+              <p class="text-sm text-gray-500 dark:text-gray-400">Tonton di Instagram</p>
+            </div>
+            <span class="arrow ml-auto text-gray-400">↗</span>
+          </a>
+
+          <a href="https://www.instagram.com/reel/DdsxpjbhjFC/?psln=aDhqYW42Z3p4N3ln" target="_blank" rel="noopener"
+             class="reveal card-glass flex items-center gap-4 rounded-2xl p-5 shadow" style="transition-delay:.3s">
+            <div class="play w-12 h-12 shrink-0 grid place-items-center rounded-xl bg-gradient-to-br from-yellow-400 to-red-500 text-white text-xl">▶</div>
+            <div class="min-w-0">
+              <p class="font-semibold">Konten Video 7</p>
+              <p class="text-sm text-gray-500 dark:text-gray-400">Tonton di Instagram</p>
+            </div>
+            <span class="arrow ml-auto text-gray-400">↗</span>
+          </a>
+
+        </div>
+      </section>
+
+      <!-- FOTO -->
+      <section id="sec-foto" data-section="foto" class="mt-14">
+        <h3 class="reveal text-2xl font-bold mb-2 text-center sm:text-left">
+          Hasil Karya <span class="gradient-text">Foto</span>
+        </h3>
+        <p class="reveal text-sm text-gray-500 dark:text-gray-400 mb-6 text-center sm:text-left">
+          Klik foto untuk memperbesar. Ganti nama file dan keterangan sesuai foto kamu di folder <code>assets/gallery/</code>.
+        </p>
+
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
+
+          <figure class="reveal photo card-glass rounded-2xl shadow" data-full="assets/gallery/foto-1.jpg">
+            <img src="assets/gallery/foto-1.jpg" alt="Dokumentasi kegiatan 1" loading="lazy" />
+            <figcaption class="cap">Dokumentasi kegiatan 1</figcaption>
+          </figure>
+
+          <figure class="reveal photo card-glass rounded-2xl shadow" data-full="assets/gallery/foto-2.jpg" style="transition-delay:.05s">
+            <img src="assets/gallery/foto-2.jpg" alt="Dokumentasi kegiatan 2" loading="lazy" />
+            <figcaption class="cap">Dokumentasi kegiatan 2</figcaption>
+          </figure>
+
+          <figure class="reveal photo card-glass rounded-2xl shadow" data-full="assets/gallery/foto-3.jpg" style="transition-delay:.1s">
+            <img src="assets/gallery/foto-3.jpg" alt="Dokumentasi kegiatan 3" loading="lazy" />
+            <figcaption class="cap">Dokumentasi kegiatan 3</figcaption>
+          </figure>
+
+          <figure class="reveal photo card-glass rounded-2xl shadow" data-full="assets/gallery/foto-4.jpg">
+            <img src="assets/gallery/foto-4.jpg" alt="Dokumentasi kegiatan 4" loading="lazy" />
+            <figcaption class="cap">Dokumentasi kegiatan 4</figcaption>
+          </figure>
+
+          <figure class="reveal photo card-glass rounded-2xl shadow" data-full="assets/gallery/foto-5.jpg" style="transition-delay:.05s">
+            <img src="assets/gallery/foto-5.jpg" alt="Dokumentasi kegiatan 5" loading="lazy" />
+            <figcaption class="cap">Dokumentasi kegiatan 5</figcaption>
+          </figure>
+
+          <figure class="reveal photo card-glass rounded-2xl shadow" data-full="assets/gallery/foto-6.jpg" style="transition-delay:.1s">
+            <img src="assets/gallery/foto-6.jpg" alt="Dokumentasi kegiatan 6" loading="lazy" />
+            <figcaption class="cap">Dokumentasi kegiatan 6</figcaption>
+          </figure>
+
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- LIGHTBOX -->
+  <div id="lightbox" class="fixed inset-0 z-[60] bg-black/85 backdrop-blur-sm items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="Pratinjau foto">
+    <button id="lb-close" aria-label="Tutup" class="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white text-xl">✕</button>
+    <img id="lb-img" src="" alt="" class="max-h-[88vh] max-w-full rounded-xl shadow-2xl object-contain" />
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-gray-200 dark:border-white/10 bg-white dark:bg-gray-900 text-center text-gray-500 dark:text-gray-400 py-6 text-sm">
+    &copy; 2026 Wafid Adzka.
+  </footer>
+
+  <!-- SCRIPT -->
+  <script>
+    // Menu mobile
+    document.getElementById('menu-toggle')?.addEventListener('click', () => {
+      document.getElementById('mobile-menu')?.classList.toggle('hidden');
+    });
+
+    // Dark mode (desktop & mobile)
+    function toggleTheme() {
+      document.documentElement.classList.toggle('dark');
+      localStorage.setItem('theme',
+        document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+    }
+    document.getElementById('toggle-dark')?.addEventListener('click', toggleTheme);
+    document.getElementById('toggle-dark-m')?.addEventListener('click', toggleTheme);
+
+    // Animasi muncul saat di-scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+    // Filter Semua / Video / Foto
+    document.querySelectorAll('.filter-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
+        const f = btn.dataset.filter;
+        document.querySelectorAll('[data-section]').forEach((sec) => {
+          sec.style.display = (f === 'all' || sec.dataset.section === f) ? '' : 'none';
+        });
+      });
+    });
+
+    // Lightbox foto
+    const lb = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lb-img');
+    function closeLb() { lb.classList.remove('open'); lbImg.src = ''; }
+    document.querySelectorAll('.photo').forEach((fig) => {
+      fig.addEventListener('click', () => {
+        lbImg.src = fig.dataset.full;
+        lbImg.alt = fig.querySelector('img')?.alt || '';
+        lb.classList.add('open');
+      });
+    });
+    lb.addEventListener('click', (e) => { if (e.target !== lbImg) closeLb(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLb(); });
+  </script>
+</body>
+</html>
