@@ -28,6 +28,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
+  <!-- Pembaca EXIF otomatis (ISO, shutter speed, dll. dari file foto) -->
+  <script src="https://cdn.jsdelivr.net/npm/exifr/dist/lite.umd.js"></script>
+
   <!-- Terapkan tema sebelum render agar tidak berkedip -->
   <script>
     (function () {
@@ -78,16 +81,34 @@
     .photo:hover img { transform: scale(1.08); }
     .photo .cap {
       position: absolute; inset: auto 0 0 0; padding: 1.5rem .9rem .7rem; color: #fff; font-size: .8rem; font-weight: 600;
-      background: linear-gradient(to top, rgba(0,0,0,.65), transparent);
+      background: linear-gradient(to top, rgba(0,0,0,.75), transparent);
       opacity: 0; transition: opacity .25s ease;
     }
     .photo:hover .cap { opacity: 1; }
+    .photo .cap-meta { display: block; margin-top: .15rem; font-size: .7rem; font-weight: 500; color: #fde68a; }
+    .photo .info-badge {
+      position: absolute; top: .5rem; right: .5rem; z-index: 2;
+      width: 1.6rem; height: 1.6rem; display: grid; place-items: center;
+      border-radius: 9999px; background: rgba(0,0,0,.55); color: #fff;
+      font-size: .8rem; font-weight: 700; backdrop-filter: blur(6px);
+    }
 
     .filter-btn { transition: all .2s ease; }
     .filter-btn.active { background: linear-gradient(90deg, #facc15, #f97316); color: #111827; border-color: transparent; }
 
-    #lightbox { display: none; }
+    /* Lightbox */
+    #lightbox { display: none; flex-direction: column; gap: .9rem; overflow-y: auto; }
     #lightbox.open { display: flex; }
+    #lb-info {
+      width: 100%; max-width: 40rem; border-radius: 1rem; padding: 1rem 1.1rem;
+      background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.15);
+      color: #fff; backdrop-filter: blur(10px);
+    }
+    #lb-info h4 { font-size: .95rem; font-weight: 700; margin-bottom: .6rem; }
+    #lb-info dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .55rem .9rem; }
+    @media (min-width: 640px) { #lb-info dl { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+    #lb-info dt { font-size: .65rem; letter-spacing: .08em; text-transform: uppercase; color: #fde68a; }
+    #lb-info dd { font-size: .85rem; font-weight: 600; word-break: break-word; }
 
     @media (prefers-reduced-motion: reduce) {
       .reveal { opacity: 1; transform: none; transition: none; }
@@ -250,41 +271,64 @@
       </section>
 
       <!-- FOTO -->
+      <!--
+        CARA ISI DETAIL FOTO:
+        - Otomatis: detail (ISO, shutter speed, dll.) dibaca dari data EXIF file foto.
+        - Manual: isi atribut data-* di bawah. Nilai manual SELALU menang atas EXIF.
+          Wajib diisi manual jika EXIF hilang (mis. foto sudah dikirim lewat WhatsApp/IG).
+        Atribut: data-camera, data-lens, data-focal (mis. "35 mm"), data-aperture (mis. "f/1.8"),
+                 data-shutter (mis. "1/250 s"), data-iso (mis. "200"), data-date (mis. "12 Agu 2026")
+      -->
       <section id="sec-foto" data-section="foto" class="mt-14">
         <h3 class="reveal text-2xl font-bold mb-2 text-center sm:text-left">
           Hasil Karya <span class="gradient-text">Foto</span>
         </h3>
+        <p class="reveal text-sm text-gray-500 dark:text-gray-400 mb-6 text-center sm:text-left">
+          Klik foto untuk melihat detail pengambilan (ISO, shutter speed, aperture, dll.).
+        </p>
 
         <div class="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
 
-          <figure class="reveal photo card-glass rounded-2xl shadow" data-full="assets/foto-1.jpeg">
+          <figure class="reveal photo card-glass rounded-2xl shadow" data-full="assets/foto-1.jpeg"
+                  data-camera="" data-lens="" data-focal="" data-aperture="" data-shutter="" data-iso="" data-date="">
             <img src="assets/foto-1.jpeg" alt="Dokumentasi kegiatan 1" loading="lazy" />
-            <figcaption class="cap">Dokumentasi kegiatan 1</figcaption>
+            <span class="info-badge" aria-hidden="true">i</span>
+            <figcaption class="cap">Dokumentasi kegiatan 1<span class="cap-meta"></span></figcaption>
           </figure>
 
-          <figure class="reveal photo card-glass rounded-2xl shadow" data-full="assets/foto-2.jpeg" style="transition-delay:.05s">
+          <figure class="reveal photo card-glass rounded-2xl shadow" data-full="assets/foto-2.jpeg" style="transition-delay:.05s"
+                  data-camera="" data-lens="" data-focal="" data-aperture="" data-shutter="" data-iso="" data-date="">
             <img src="assets/foto-2.jpeg" alt="Dokumentasi kegiatan 2" loading="lazy" />
-            <figcaption class="cap">Dokumentasi kegiatan 2</figcaption>
+            <span class="info-badge" aria-hidden="true">i</span>
+            <figcaption class="cap">Dokumentasi kegiatan 2<span class="cap-meta"></span></figcaption>
           </figure>
 
-          <figure class="reveal photo card-glass rounded-2xl shadow" data-full="assets/foto-3.jpeg" style="transition-delay:.1s">
+          <figure class="reveal photo card-glass rounded-2xl shadow" data-full="assets/foto-3.jpeg" style="transition-delay:.1s"
+                  data-camera="" data-lens="" data-focal="" data-aperture="" data-shutter="" data-iso="" data-date="">
             <img src="assets/foto-3.jpeg" alt="Dokumentasi kegiatan 3" loading="lazy" />
-            <figcaption class="cap">Dokumentasi kegiatan 3</figcaption>
+            <span class="info-badge" aria-hidden="true">i</span>
+            <figcaption class="cap">Dokumentasi kegiatan 3<span class="cap-meta"></span></figcaption>
           </figure>
 
-          <figure class="reveal photo card-glass rounded-2xl shadow" data-full="assets/foto-4.jpeg">
+          <figure class="reveal photo card-glass rounded-2xl shadow" data-full="assets/foto-4.jpeg"
+                  data-camera="" data-lens="" data-focal="" data-aperture="" data-shutter="" data-iso="" data-date="">
             <img src="assets/foto-4.jpeg" alt="Dokumentasi kegiatan 4" loading="lazy" />
-            <figcaption class="cap">Dokumentasi kegiatan 4</figcaption>
+            <span class="info-badge" aria-hidden="true">i</span>
+            <figcaption class="cap">Dokumentasi kegiatan 4<span class="cap-meta"></span></figcaption>
           </figure>
 
-          <figure class="reveal photo card-glass rounded-2xl shadow" data-full="assets/foto-5.jpeg" style="transition-delay:.05s">
+          <figure class="reveal photo card-glass rounded-2xl shadow" data-full="assets/foto-5.jpeg" style="transition-delay:.05s"
+                  data-camera="" data-lens="" data-focal="" data-aperture="" data-shutter="" data-iso="" data-date="">
             <img src="assets/foto-5.jpeg" alt="Dokumentasi kegiatan 5" loading="lazy" />
-            <figcaption class="cap">Dokumentasi kegiatan 5</figcaption>
+            <span class="info-badge" aria-hidden="true">i</span>
+            <figcaption class="cap">Dokumentasi kegiatan 5<span class="cap-meta"></span></figcaption>
           </figure>
 
-          <figure class="reveal photo card-glass rounded-2xl shadow" data-full="assets/foto-6.jpeg" style="transition-delay:.1s">
+          <figure class="reveal photo card-glass rounded-2xl shadow" data-full="assets/foto-6.jpeg" style="transition-delay:.1s"
+                  data-camera="" data-lens="" data-focal="" data-aperture="" data-shutter="" data-iso="" data-date="">
             <img src="assets/foto-6.jpeg" alt="Dokumentasi kegiatan 6" loading="lazy" />
-            <figcaption class="cap">Dokumentasi kegiatan 6</figcaption>
+            <span class="info-badge" aria-hidden="true">i</span>
+            <figcaption class="cap">Dokumentasi kegiatan 6<span class="cap-meta"></span></figcaption>
           </figure>
 
         </div>
@@ -295,8 +339,12 @@
 
   <!-- LIGHTBOX -->
   <div id="lightbox" class="fixed inset-0 z-[60] bg-black/85 backdrop-blur-sm items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="Pratinjau foto">
-    <button id="lb-close" aria-label="Tutup" class="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white text-xl">✕</button>
-    <img id="lb-img" src="" alt="" class="max-h-[88vh] max-w-full rounded-xl shadow-2xl object-contain" />
+    <button id="lb-close" aria-label="Tutup" class="fixed top-4 right-4 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white text-xl z-10">✕</button>
+    <img id="lb-img" src="" alt="" class="max-h-[62vh] max-w-full rounded-xl shadow-2xl object-contain" />
+    <div id="lb-info">
+      <h4 id="lb-title">Detail Foto</h4>
+      <dl id="lb-list"></dl>
+    </div>
   </div>
 
   <!-- FOOTER -->
@@ -343,18 +391,103 @@
       });
     });
 
+    // ===== Detail foto (EXIF otomatis + isian manual) =====
+    const FIELDS = [
+      ['camera',   'Kamera'],
+      ['lens',     'Lensa'],
+      ['focal',    'Focal length'],
+      ['aperture', 'Aperture'],
+      ['shutter',  'Shutter speed'],
+      ['iso',      'ISO'],
+      ['date',     'Tanggal']
+    ];
+
+    function fmtShutter(t) {
+      if (!t) return '';
+      return t >= 1 ? (Math.round(t * 10) / 10) + ' s' : '1/' + Math.round(1 / t) + ' s';
+    }
+    function fmtDate(d) {
+      if (!(d instanceof Date) || isNaN(d)) return '';
+      return d.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+    }
+    function cleanCamera(make, model) {
+      if (!model) return make || '';
+      if (make && !model.toLowerCase().startsWith(make.toLowerCase().split(' ')[0])) return make + ' ' + model;
+      return model;
+    }
+
+    async function loadMeta(fig) {
+      const ds = fig.dataset;
+      const meta = {
+        camera: ds.camera || '', lens: ds.lens || '', focal: ds.focal || '',
+        aperture: ds.aperture || '', shutter: ds.shutter || '', iso: ds.iso || '', date: ds.date || ''
+      };
+
+      // Lengkapi yang kosong dari EXIF file foto
+      if (window.exifr) {
+        try {
+          const e = await exifr.parse(ds.full, {
+            pick: ['Make', 'Model', 'LensModel', 'ISO', 'ExposureTime', 'FNumber',
+                   'FocalLength', 'FocalLengthIn35mmFormat', 'DateTimeOriginal']
+          });
+          if (e) {
+            if (!meta.camera && (e.Model || e.Make)) meta.camera = cleanCamera(e.Make, e.Model);
+            if (!meta.lens && e.LensModel) meta.lens = e.LensModel;
+            if (!meta.focal && e.FocalLength) {
+              meta.focal = Math.round(e.FocalLength) + ' mm' +
+                (e.FocalLengthIn35mmFormat ? ' (' + Math.round(e.FocalLengthIn35mmFormat) + ' mm eq.)' : '');
+            }
+            if (!meta.aperture && e.FNumber) meta.aperture = 'f/' + (Math.round(e.FNumber * 10) / 10);
+            if (!meta.shutter && e.ExposureTime) meta.shutter = fmtShutter(e.ExposureTime);
+            if (!meta.iso && e.ISO) meta.iso = String(e.ISO);
+            if (!meta.date && e.DateTimeOriginal) meta.date = fmtDate(e.DateTimeOriginal);
+          }
+        } catch (err) { /* EXIF tidak ada / tidak terbaca: pakai data manual saja */ }
+      }
+
+      fig._meta = meta;
+
+      // Ringkasan singkat saat hover
+      const parts = [];
+      if (meta.iso) parts.push('ISO ' + meta.iso);
+      if (meta.shutter) parts.push(meta.shutter);
+      if (meta.aperture) parts.push(meta.aperture);
+      const sum = fig.querySelector('.cap-meta');
+      if (sum) sum.textContent = parts.join(' · ');
+    }
+
+    function renderInfo(fig) {
+      const list = document.getElementById('lb-list');
+      list.textContent = '';
+      const meta = fig._meta || {};
+      FIELDS.forEach(([key, label]) => {
+        const wrap = document.createElement('div');
+        const dt = document.createElement('dt'); dt.textContent = label;
+        const dd = document.createElement('dd'); dd.textContent = meta[key] || '—';
+        wrap.append(dt, dd);
+        list.appendChild(wrap);
+      });
+    }
+
+    document.querySelectorAll('.photo').forEach(loadMeta);
+
     // Lightbox foto
     const lb = document.getElementById('lightbox');
     const lbImg = document.getElementById('lb-img');
+    const lbTitle = document.getElementById('lb-title');
     function closeLb() { lb.classList.remove('open'); lbImg.src = ''; }
     document.querySelectorAll('.photo').forEach((fig) => {
       fig.addEventListener('click', () => {
         lbImg.src = fig.dataset.full;
         lbImg.alt = fig.querySelector('img')?.alt || '';
+        lbTitle.textContent = lbImg.alt || 'Detail Foto';
+        renderInfo(fig);
         lb.classList.add('open');
       });
     });
-    lb.addEventListener('click', (e) => { if (e.target !== lbImg) closeLb(); });
+    lb.addEventListener('click', (e) => {
+      if (e.target === lb || e.target.id === 'lb-close') closeLb();
+    });
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLb(); });
   </script>
 </body>
