@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <title>Gallery – Wafid</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Galeri hasil karya video dan foto Wafid Adzka." />
+  <meta name="description" content="Galeri hasil karya video, foto, dan publikasi jurnal Wafid Adzka." />
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -71,6 +71,14 @@
     a.card-glass:hover .arrow { transform: translateX(4px); }
     a.card-glass:hover .play { transform: scale(1.1); }
     .arrow, .play { transition: transform .25s ease; }
+
+    /* Jurnal */
+    .journal-card:hover { box-shadow: 0 18px 40px -12px rgba(249,115,22,.35); border-color: rgba(250,204,21,.6); }
+    .btn-grad {
+      background: linear-gradient(90deg, #facc15, #f97316); color: #111827;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .btn-grad:hover { transform: translateY(-2px); box-shadow: 0 10px 24px -8px rgba(249,115,22,.6); }
 
     /* Foto */
     .photo { position: relative; overflow: hidden; cursor: zoom-in; aspect-ratio: 4 / 3; }
@@ -158,19 +166,81 @@
           <span class="gradient-text">Gallery</span> Karya
         </h2>
         <p class="text-gray-600 dark:text-gray-400 mt-3 max-w-xl mx-auto">
-          Kumpulan video dan foto hasil dokumentasi serta konten yang pernah saya buat.
+          Kumpulan jurnal, video, dan foto hasil dokumentasi serta konten yang pernah saya buat.
         </p>
       </div>
 
       <!-- Filter -->
-      <div class="reveal flex justify-center gap-2 mb-10" role="group" aria-label="Filter galeri">
+      <div class="reveal flex flex-wrap justify-center gap-2 mb-10" role="group" aria-label="Filter galeri">
         <button class="filter-btn active px-4 py-2 rounded-full text-sm font-semibold border border-gray-300 dark:border-white/20" data-filter="all">Semua</button>
+        <button class="filter-btn px-4 py-2 rounded-full text-sm font-semibold border border-gray-300 dark:border-white/20" data-filter="jurnal">📄 Jurnal</button>
         <button class="filter-btn px-4 py-2 rounded-full text-sm font-semibold border border-gray-300 dark:border-white/20" data-filter="video">🎬 Video</button>
         <button class="filter-btn px-4 py-2 rounded-full text-sm font-semibold border border-gray-300 dark:border-white/20" data-filter="foto">📷 Foto</button>
       </div>
 
+      <!-- JURNAL -->
+      <section id="sec-jurnal" data-section="jurnal">
+        <h3 class="reveal text-2xl font-bold mb-6 text-center sm:text-left">
+          Publikasi <span class="gradient-text">Jurnal</span>
+        </h3>
+
+        <article class="reveal card-glass journal-card rounded-2xl p-6 md:p-8 shadow">
+          <div class="flex flex-col sm:flex-row gap-5">
+            <div class="w-14 h-14 shrink-0 grid place-items-center rounded-2xl bg-gradient-to-br from-yellow-400 to-orange-500 text-white text-2xl" aria-hidden="true">📄</div>
+
+            <div class="min-w-0">
+              <div class="flex flex-wrap items-center gap-2 mb-3">
+                <span class="text-xs font-semibold px-3 py-1 rounded-full bg-yellow-400/20 text-yellow-700 dark:text-yellow-300">Nuansa Informatika</span>
+                <span class="text-xs font-semibold px-3 py-1 rounded-full bg-sky-400/20 text-sky-700 dark:text-sky-300">SINTA 5</span>
+                <span class="text-xs font-semibold px-3 py-1 rounded-full bg-emerald-400/20 text-emerald-700 dark:text-emerald-300">Open Access</span>
+              </div>
+
+              <h4 class="text-lg md:text-xl font-bold leading-snug">
+                Development of a Mobile Application for Booking Meeting Rooms at PLN UP2D West Java
+              </h4>
+              <p class="text-sm italic text-gray-500 dark:text-gray-400 mt-1">
+                Pengembangan Aplikasi Mobile untuk Pemesanan Ruang Rapat di PLN UP2D Jawa Barat
+              </p>
+
+              <p class="text-sm mt-3 text-gray-700 dark:text-gray-300">
+                <span class="font-semibold">Wafid Adzka Haifan Mukhayyar</span>, Nisa Hanum
+              </p>
+              <p class="text-sm text-gray-500 dark:text-gray-400">
+                Nuansa Informatika, Vol. 20 No. 2 (2026), hlm. 1–12 · Universitas Logistik dan Bisnis Internasional
+              </p>
+
+              <p class="text-sm mt-4 text-gray-600 dark:text-gray-400 leading-relaxed">
+                Aplikasi mobile untuk memesan ruang rapat di PLN UP2D Jawa Barat. Pegawai dapat mengecek ketersediaan ruangan secara real-time dan melakukan reservasi tanpa konfirmasi manual, sekaligus mencegah jadwal bentrok (double booking).
+              </p>
+
+              <div class="flex flex-wrap gap-2 mt-4">
+                <span class="text-xs px-2.5 py-1 rounded-md bg-gray-200/70 dark:bg-white/10">Meeting Room Booking</span>
+                <span class="text-xs px-2.5 py-1 rounded-md bg-gray-200/70 dark:bg-white/10">Mobile Application</span>
+                <span class="text-xs px-2.5 py-1 rounded-md bg-gray-200/70 dark:bg-white/10">Real-time Availability</span>
+                <span class="text-xs px-2.5 py-1 rounded-md bg-gray-200/70 dark:bg-white/10">Room Utilization Optimization</span>
+              </div>
+
+              <div class="flex flex-wrap gap-3 mt-6">
+                <a href="https://journal.fkom.uniku.ac.id/ilkom/article/view/556" target="_blank" rel="noopener"
+                   class="btn-grad inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold">
+                  Baca Artikel <span aria-hidden="true">↗</span>
+                </a>
+                <a href="https://journal.fkom.uniku.ac.id/ilkom/article/view/556/168" target="_blank" rel="noopener"
+                   class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold border border-gray-300 dark:border-white/20 hover:border-yellow-400 transition">
+                  Unduh PDF
+                </a>
+                <a href="https://doi.org/10.25134/ilkom.v20i2.556" target="_blank" rel="noopener"
+                   class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold border border-gray-300 dark:border-white/20 hover:border-yellow-400 transition">
+                  DOI
+                </a>
+              </div>
+            </div>
+          </div>
+        </article>
+      </section>
+
       <!-- VIDEO -->
-      <section id="sec-video" data-section="video">
+      <section id="sec-video" data-section="video" class="mt-14">
         <h3 class="reveal text-2xl font-bold mb-6 text-center sm:text-left">
           Hasil Karya <span class="gradient-text">Video</span>
         </h3>
@@ -332,7 +402,7 @@
     }, { threshold: 0.12 });
     document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
 
-    // Filter Semua / Video / Foto
+    // Filter Semua / Jurnal / Video / Foto
     document.querySelectorAll('.filter-btn').forEach((btn) => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.filter-btn').forEach((b) => b.classList.remove('active'));
