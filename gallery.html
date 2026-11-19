@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <title>Gallery – Wafid</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Galeri hasil karya video, foto, dan publikasi jurnal Wafid Adzka." />
+  <meta name="description" content="Galeri hasil karya video, foto, sertifikat, dan publikasi jurnal Wafid Adzka." />
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -79,6 +79,9 @@
       transition: transform .2s ease, box-shadow .2s ease;
     }
     .btn-grad:hover { transform: translateY(-2px); box-shadow: 0 10px 24px -8px rgba(249,115,22,.6); }
+
+    /* Sertifikat */
+    .cert-card:hover { transform: translateY(-4px); box-shadow: 0 18px 40px -12px rgba(249,115,22,.35); border-color: rgba(250,204,21,.6); }
 
     /* Foto */
     .photo { position: relative; overflow: hidden; cursor: zoom-in; aspect-ratio: 4 / 3; }
@@ -166,7 +169,7 @@
           <span class="gradient-text">Gallery</span> Karya
         </h2>
         <p class="text-gray-600 dark:text-gray-400 mt-3 max-w-xl mx-auto">
-          Kumpulan jurnal, video, dan foto hasil dokumentasi serta konten yang pernah saya buat.
+          Kumpulan jurnal, sertifikat, video, dan foto hasil dokumentasi serta konten yang pernah saya buat.
         </p>
       </div>
 
@@ -174,6 +177,7 @@
       <div class="reveal flex flex-wrap justify-center gap-2 mb-10" role="group" aria-label="Filter galeri">
         <button class="filter-btn active px-4 py-2 rounded-full text-sm font-semibold border border-gray-300 dark:border-white/20" data-filter="all">Semua</button>
         <button class="filter-btn px-4 py-2 rounded-full text-sm font-semibold border border-gray-300 dark:border-white/20" data-filter="jurnal">📄 Jurnal</button>
+        <button class="filter-btn px-4 py-2 rounded-full text-sm font-semibold border border-gray-300 dark:border-white/20" data-filter="sertifikat">🏅 Sertifikat</button>
         <button class="filter-btn px-4 py-2 rounded-full text-sm font-semibold border border-gray-300 dark:border-white/20" data-filter="video">🎬 Video</button>
         <button class="filter-btn px-4 py-2 rounded-full text-sm font-semibold border border-gray-300 dark:border-white/20" data-filter="foto">📷 Foto</button>
       </div>
@@ -237,6 +241,56 @@
             </div>
           </div>
         </article>
+      </section>
+
+      <!-- SERTIFIKAT -->
+      <section id="sec-sertifikat" data-section="sertifikat" class="mt-14">
+        <h3 class="reveal text-2xl font-bold mb-6 text-center sm:text-left">
+          <span class="gradient-text">Sertifikat</span> &amp; Kompetensi
+        </h3>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+          <article class="reveal card-glass cert-card rounded-2xl p-6 shadow flex flex-col">
+            <div class="w-12 h-12 grid place-items-center rounded-xl bg-gradient-to-br from-yellow-400 to-orange-500 text-white text-xl mb-4" aria-hidden="true">🏅</div>
+            <div class="flex flex-wrap gap-2 mb-3">
+              <span class="text-xs font-semibold px-3 py-1 rounded-full bg-emerald-400/20 text-emerald-700 dark:text-emerald-300">Certificate of Competence</span>
+              <span class="text-xs font-semibold px-3 py-1 rounded-full bg-sky-400/20 text-sky-700 dark:text-sky-300">BNSP</span>
+            </div>
+            <h4 class="text-base font-bold leading-snug">Computer Network First-Level Computer Network Technician</h4>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">Sertifikasi kompetensi teknisi jaringan komputer tingkat pertama dari BNSP.</p>
+            <button type="button" class="cert-view btn-grad mt-5 self-start inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold" data-full="assets/Sertifikat-bnsp.pdf">
+              Lihat Sertifikat <span aria-hidden="true">↗</span>
+            </button>
+          </article>
+
+          <article class="reveal card-glass cert-card rounded-2xl p-6 shadow flex flex-col" style="transition-delay:.05s">
+            <div class="w-12 h-12 grid place-items-center rounded-xl bg-gradient-to-br from-orange-400 to-pink-500 text-white text-xl mb-4" aria-hidden="true">🏅</div>
+            <div class="flex flex-wrap gap-2 mb-3">
+              <span class="text-xs font-semibold px-3 py-1 rounded-full bg-yellow-400/20 text-yellow-700 dark:text-yellow-300">Certificate of Accomplishment</span>
+              <span class="text-xs font-semibold px-3 py-1 rounded-full bg-sky-400/20 text-sky-700 dark:text-sky-300">SAP</span>
+            </div>
+            <h4 class="text-base font-bold leading-snug">BC400 – Introduction to the ABAP Workbench</h4>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">Dasar pengembangan aplikasi menggunakan ABAP Workbench di lingkungan SAP.</p>
+            <button type="button" class="cert-view btn-grad mt-5 self-start inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold" data-full="assets/Sertifikat-BC400.pdf">
+              Lihat Sertifikat <span aria-hidden="true">↗</span>
+            </button>
+          </article>
+
+          <article class="reveal card-glass cert-card rounded-2xl p-6 shadow flex flex-col" style="transition-delay:.1s">
+            <div class="w-12 h-12 grid place-items-center rounded-xl bg-gradient-to-br from-pink-400 to-purple-500 text-white text-xl mb-4" aria-hidden="true">🏅</div>
+            <div class="flex flex-wrap gap-2 mb-3">
+              <span class="text-xs font-semibold px-3 py-1 rounded-full bg-yellow-400/20 text-yellow-700 dark:text-yellow-300">Certificate of Accomplishment</span>
+              <span class="text-xs font-semibold px-3 py-1 rounded-full bg-sky-400/20 text-sky-700 dark:text-sky-300">SAP</span>
+            </div>
+            <h4 class="text-base font-bold leading-snug">SAP01 – SAP Overview</h4>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">Pengenalan menyeluruh tentang solusi, arsitektur, dan ekosistem SAP.</p>
+            <button type="button" class="cert-view btn-grad mt-5 self-start inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold" data-full="assets/Sertifikat-SAP01.pdf">
+              Lihat Sertifikat <span aria-hidden="true">↗</span>
+            </button>
+          </article>
+
+        </div>
       </section>
 
       <!-- VIDEO -->
@@ -365,7 +419,7 @@
   </main>
 
   <!-- LIGHTBOX -->
-  <div id="lightbox" class="fixed inset-0 z-[60] bg-black/85 backdrop-blur-sm items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="Pratinjau foto">
+  <div id="lightbox" class="fixed inset-0 z-[60] bg-black/85 backdrop-blur-sm items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="Pratinjau gambar">
     <button id="lb-close" aria-label="Tutup" class="fixed top-4 right-4 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white text-xl z-10">✕</button>
     <img id="lb-img" src="" alt="" class="max-h-[88vh] max-w-full rounded-xl shadow-2xl object-contain" />
   </div>
@@ -402,7 +456,7 @@
     }, { threshold: 0.12 });
     document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
 
-    // Filter Semua / Jurnal / Video / Foto
+    // Filter Semua / Jurnal / Sertifikat / Video / Foto
     document.querySelectorAll('.filter-btn').forEach((btn) => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.filter-btn').forEach((b) => b.classList.remove('active'));
@@ -414,7 +468,7 @@
       });
     });
 
-    // Lightbox foto
+    // Lightbox (foto & sertifikat)
     const lb = document.getElementById('lightbox');
     const lbImg = document.getElementById('lb-img');
     function closeLb() { lb.classList.remove('open'); lbImg.src = ''; }
@@ -422,6 +476,13 @@
       fig.addEventListener('click', () => {
         lbImg.src = fig.dataset.full;
         lbImg.alt = fig.querySelector('img')?.alt || '';
+        lb.classList.add('open');
+      });
+    });
+    document.querySelectorAll('.cert-view').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        lbImg.src = btn.dataset.full;
+        lbImg.alt = btn.closest('article')?.querySelector('h4')?.textContent.trim() || 'Sertifikat';
         lb.classList.add('open');
       });
     });
