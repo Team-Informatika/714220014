@@ -70,6 +70,10 @@
     a.card-glass:hover { transform: translateY(-4px); box-shadow: 0 18px 40px -12px rgba(249,115,22,.35); border-color: rgba(250,204,21,.6); }
     a.card-glass:hover .arrow { transform: translateX(4px); }
     a.card-glass:hover .play { transform: scale(1.1); }
+    .video-card { cursor: pointer; }
+    .video-card:hover { transform: translateY(-4px); box-shadow: 0 18px 40px -12px rgba(249,115,22,.35); border-color: rgba(250,204,21,.6); }
+    .video-card:hover .arrow { transform: translateX(4px); }
+    .video-card:hover .play { transform: scale(1.1); }
     .arrow, .play { transition: transform .25s ease; }
 
     /* Jurnal */
@@ -301,75 +305,75 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
-          <a href="https://www.instagram.com/reel/DRjD1WSgWis/?igsh=MXU5dzV1ZGtrNWg1dw==" target="_blank" rel="noopener"
-             class="reveal card-glass flex items-center gap-4 rounded-2xl p-5 shadow">
+          <button type="button" data-ig="DRjD1WSgWis" aria-label="Putar video"
+             class="video-card reveal card-glass flex items-center gap-4 rounded-2xl p-5 shadow w-full text-left">
             <div class="play w-12 h-12 shrink-0 grid place-items-center rounded-xl bg-gradient-to-br from-yellow-400 to-orange-500 text-white text-xl">▶</div>
             <div class="min-w-0">
               <p class="font-semibold">Konten Video 1</p>
-              <p class="text-sm text-gray-500 dark:text-gray-400">Tonton di Instagram</p>
+              <p class="text-sm text-gray-500 dark:text-gray-400">Klik untuk memutar</p>
             </div>
-            <span class="arrow ml-auto text-gray-400">↗</span>
-          </a>
+            <span class="arrow ml-auto text-gray-400">▶</span>
+          </button>
 
-          <a href="https://www.instagram.com/reel/DRgUi4pgXVJ/?igsh=MTVjd3h6cTA1M2k3OA==" target="_blank" rel="noopener"
-             class="reveal card-glass flex items-center gap-4 rounded-2xl p-5 shadow" style="transition-delay:.05s">
+          <button type="button" data-ig="DRgUi4pgXVJ" aria-label="Putar video"
+             class="video-card reveal card-glass flex items-center gap-4 rounded-2xl p-5 shadow w-full text-left" style="transition-delay:.05s">
             <div class="play w-12 h-12 shrink-0 grid place-items-center rounded-xl bg-gradient-to-br from-orange-400 to-pink-500 text-white text-xl">▶</div>
             <div class="min-w-0">
               <p class="font-semibold">Konten Video 2</p>
-              <p class="text-sm text-gray-500 dark:text-gray-400">Tonton di Instagram</p>
+              <p class="text-sm text-gray-500 dark:text-gray-400">Klik untuk memutar</p>
             </div>
-            <span class="arrow ml-auto text-gray-400">↗</span>
-          </a>
+            <span class="arrow ml-auto text-gray-400">▶</span>
+          </button>
 
-          <a href="https://www.instagram.com/reel/DSmYT4sgfgI/?igsh=c29oaGJtOGpvd2w2" target="_blank" rel="noopener"
-             class="reveal card-glass flex items-center gap-4 rounded-2xl p-5 shadow" style="transition-delay:.1s">
+          <button type="button" data-ig="DSmYT4sgfgI" aria-label="Putar video"
+             class="video-card reveal card-glass flex items-center gap-4 rounded-2xl p-5 shadow w-full text-left" style="transition-delay:.1s">
             <div class="play w-12 h-12 shrink-0 grid place-items-center rounded-xl bg-gradient-to-br from-pink-400 to-purple-500 text-white text-xl">▶</div>
             <div class="min-w-0">
               <p class="font-semibold">Konten Video 3</p>
-              <p class="text-sm text-gray-500 dark:text-gray-400">Tonton di Instagram</p>
+              <p class="text-sm text-gray-500 dark:text-gray-400">Klik untuk memutar</p>
             </div>
-            <span class="arrow ml-auto text-gray-400">↗</span>
-          </a>
+            <span class="arrow ml-auto text-gray-400">▶</span>
+          </button>
 
-          <a href="https://www.instagram.com/reel/DUSNU4JAfn2/?igsh=MWt4OXpoY3c0MXA3eQ==" target="_blank" rel="noopener"
-             class="reveal card-glass flex items-center gap-4 rounded-2xl p-5 shadow" style="transition-delay:.15s">
+          <button type="button" data-ig="DUSNU4JAfn2" aria-label="Putar video"
+             class="video-card reveal card-glass flex items-center gap-4 rounded-2xl p-5 shadow w-full text-left" style="transition-delay:.15s">
             <div class="play w-12 h-12 shrink-0 grid place-items-center rounded-xl bg-gradient-to-br from-purple-400 to-sky-500 text-white text-xl">▶</div>
             <div class="min-w-0">
               <p class="font-semibold">Konten Video 4</p>
-              <p class="text-sm text-gray-500 dark:text-gray-400">Tonton di Instagram</p>
+              <p class="text-sm text-gray-500 dark:text-gray-400">Klik untuk memutar</p>
             </div>
-            <span class="arrow ml-auto text-gray-400">↗</span>
-          </a>
+            <span class="arrow ml-auto text-gray-400">▶</span>
+          </button>
 
-          <a href="https://www.instagram.com/reel/Dela0JrBGNh/?srtk=MWs0c21yNGR3OXdmZg==" target="_blank" rel="noopener"
-             class="reveal card-glass flex items-center gap-4 rounded-2xl p-5 shadow" style="transition-delay:.2s">
+          <button type="button" data-ig="Dela0JrBGNh" aria-label="Putar video"
+             class="video-card reveal card-glass flex items-center gap-4 rounded-2xl p-5 shadow w-full text-left" style="transition-delay:.2s">
             <div class="play w-12 h-12 shrink-0 grid place-items-center rounded-xl bg-gradient-to-br from-sky-400 to-emerald-500 text-white text-xl">▶</div>
             <div class="min-w-0">
               <p class="font-semibold">Konten Video 5</p>
-              <p class="text-sm text-gray-500 dark:text-gray-400">Tonton di Instagram</p>
+              <p class="text-sm text-gray-500 dark:text-gray-400">Klik untuk memutar</p>
             </div>
-            <span class="arrow ml-auto text-gray-400">↗</span>
-          </a>
+            <span class="arrow ml-auto text-gray-400">▶</span>
+          </button>
 
-          <a href="https://www.instagram.com/reel/DeToXxYBk6x/?cplk=MW1yODhkbjR0OGZhcA==" target="_blank" rel="noopener"
-             class="reveal card-glass flex items-center gap-4 rounded-2xl p-5 shadow" style="transition-delay:.25s">
+          <button type="button" data-ig="DeToXxYBk6x" aria-label="Putar video"
+             class="video-card reveal card-glass flex items-center gap-4 rounded-2xl p-5 shadow w-full text-left" style="transition-delay:.25s">
             <div class="play w-12 h-12 shrink-0 grid place-items-center rounded-xl bg-gradient-to-br from-emerald-400 to-yellow-400 text-white text-xl">▶</div>
             <div class="min-w-0">
               <p class="font-semibold">Konten Video 6</p>
-              <p class="text-sm text-gray-500 dark:text-gray-400">Tonton di Instagram</p>
+              <p class="text-sm text-gray-500 dark:text-gray-400">Klik untuk memutar</p>
             </div>
-            <span class="arrow ml-auto text-gray-400">↗</span>
-          </a>
+            <span class="arrow ml-auto text-gray-400">▶</span>
+          </button>
 
-          <a href="https://www.instagram.com/reel/DdsxpjbhjFC/?psln=aDhqYW42Z3p4N3ln" target="_blank" rel="noopener"
-             class="reveal card-glass flex items-center gap-4 rounded-2xl p-5 shadow" style="transition-delay:.3s">
+          <button type="button" data-ig="DdsxpjbhjFC" aria-label="Putar video"
+             class="video-card reveal card-glass flex items-center gap-4 rounded-2xl p-5 shadow w-full text-left" style="transition-delay:.3s">
             <div class="play w-12 h-12 shrink-0 grid place-items-center rounded-xl bg-gradient-to-br from-yellow-400 to-red-500 text-white text-xl">▶</div>
             <div class="min-w-0">
               <p class="font-semibold">Konten Video 7</p>
-              <p class="text-sm text-gray-500 dark:text-gray-400">Tonton di Instagram</p>
+              <p class="text-sm text-gray-500 dark:text-gray-400">Klik untuk memutar</p>
             </div>
-            <span class="arrow ml-auto text-gray-400">↗</span>
-          </a>
+            <span class="arrow ml-auto text-gray-400">▶</span>
+          </button>
 
         </div>
       </section>
@@ -428,6 +432,8 @@
     <img id="lb-img" src="" alt="" class="max-h-[88vh] max-w-full rounded-xl shadow-2xl object-contain" />
     <iframe id="lb-pdf" src="" title="Pratinjau sertifikat"
             class="hidden w-full max-w-4xl h-[85vh] mt-10 rounded-xl bg-white shadow-2xl"></iframe>
+    <iframe id="lb-ig" src="" title="Pemutar video" allow="autoplay; encrypted-media; fullscreen" allowfullscreen
+            class="hidden w-full max-w-md h-[85vh] mt-10 rounded-xl bg-white shadow-2xl"></iframe>
   </div>
 
   <!-- FOOTER -->
@@ -480,21 +486,35 @@
     const lbPdf = document.getElementById('lb-pdf');
     const lbOpen = document.getElementById('lb-open');
 
+    const lbIg = document.getElementById('lb-ig');
+
+    function showOnly(which) {
+      lbImg.classList.toggle('hidden', which !== 'img');
+      lbPdf.classList.toggle('hidden', which !== 'pdf');
+      lbIg.classList.toggle('hidden', which !== 'ig');
+      lbOpen.classList.toggle('hidden', which === 'img');
+    }
+
     function openLb(src, alt) {
       const isPdf = /\.pdf($|\?|#)/i.test(src);
       if (isPdf) {
         lbPdf.src = src;
         lbOpen.href = src;
-        lbPdf.classList.remove('hidden');
-        lbOpen.classList.remove('hidden');
-        lbImg.classList.add('hidden');
+        lbOpen.textContent = 'Buka di tab baru ↗';
+        showOnly('pdf');
       } else {
         lbImg.src = src;
         lbImg.alt = alt || '';
-        lbImg.classList.remove('hidden');
-        lbPdf.classList.add('hidden');
-        lbOpen.classList.add('hidden');
+        showOnly('img');
       }
+      lb.classList.add('open');
+    }
+
+    function openVideo(id) {
+      lbIg.src = 'https://www.instagram.com/reel/' + id + '/embed/';
+      lbOpen.href = 'https://www.instagram.com/reel/' + id + '/';
+      lbOpen.textContent = 'Buka di Instagram ↗';
+      showOnly('ig');
       lb.classList.add('open');
     }
 
@@ -502,6 +522,7 @@
       lb.classList.remove('open');
       lbImg.src = '';
       lbPdf.src = '';
+      lbIg.src = '';   // menghentikan video
     }
 
     document.querySelectorAll('.photo').forEach((fig) => {
@@ -513,6 +534,9 @@
       btn.addEventListener('click', () => {
         openLb(btn.dataset.full, btn.closest('article')?.querySelector('h4')?.textContent.trim() || 'Sertifikat');
       });
+    });
+    document.querySelectorAll('.video-card').forEach((btn) => {
+      btn.addEventListener('click', () => openVideo(btn.dataset.ig));
     });
     lb.addEventListener('click', (e) => {
       if (e.target === lb || e.target.id === 'lb-close') closeLb();
