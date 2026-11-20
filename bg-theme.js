@@ -46,6 +46,7 @@
     const starCount = Math.floor((W * H) / (small ? 5500 : 4500));
     stars = Array.from({ length: starCount }, () => ({
       x: rand(0, W), y: rand(0, H * 0.9),
+      d: rand(0.3, 1.6),
       r: rand(0.4, 1.6),
       phase: rand(0, Math.PI * 2),
       speed: rand(0.8, 2.6)
@@ -101,6 +102,13 @@
 
     // Bintang
     for (const s of stars) {
+      if (!reduceMotion) {
+        // Bergeser pelan (parallax: bintang dekat lebih cepat), lalu muncul lagi dari sisi seberang
+        s.x -= 9 * s.d * dt;
+        s.y += 2.5 * s.d * dt;
+        if (s.x < -4) s.x = W + 4;
+        if (s.y > H * 0.92) s.y = -4;
+      }
       const a = 0.35 + 0.65 * (0.5 + 0.5 * Math.sin(time * s.speed + s.phase));
       ctx.globalAlpha = a;
       ctx.fillStyle = '#fff';
@@ -112,7 +120,11 @@
 
     // Bulan
     const mr = Math.max(28, Math.min(52, W * 0.045));
-    const mx = W * 0.84, my = Math.max(90, H * 0.17);
+    // Bulan melintasi langit membentuk busur (~100 detik), lalu muncul lagi dari kanan
+    const p = (0.25 + time * 0.01) % 1;
+    const mx = W * (1.12 - 1.24 * p);
+    const my = Math.max(80, H * 0.28 - Math.sin(Math.PI * p) * H * 0.17) + Math.sin(time * 0.8) * 3;
+    ctx.globalAlpha = Math.max(0, Math.min(1, p / 0.08, (1 - p) / 0.08));
     const glow = ctx.createRadialGradient(mx, my, mr * 0.8, mx, my, mr * 4.5);
     glow.addColorStop(0, 'rgba(226,232,240,0.35)');
     glow.addColorStop(1, 'rgba(226,232,240,0)');
@@ -133,6 +145,7 @@
         ctx.arc(mx + dx * mr, my + dy * mr, r * mr, 0, Math.PI * 2);
         ctx.fill();
       });
+    ctx.globalAlpha = 1;
 
     // Meteor
     if (!reduceMotion) {
