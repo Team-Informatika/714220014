@@ -1,7 +1,10 @@
 /*
  * bg-theme.js — latar belakang animasi mengikuti tema
- *  - Gelap : langit malam, bulan, bintang berkedip, meteor jatuh
- *  - Cerah : langit biru, matahari, awan bergerak, burung terbang
+ *  - Gelap : langit malam, bulan bergerak, bintang bergerak & berkedip, meteor jatuh
+ *  - Cerah : langit biru, matahari bergerak, awan bergerak, burung terbang
+ *
+ * Pemakaian: <script src="bg-theme.js?v=3" defer></script> sebelum </body>
+ * Tema dibaca dari class "dark" pada <html> (sama seperti tombol toggle kamu).
  */
 (function () {
   'use strict';
@@ -148,7 +151,7 @@
       nextMeteor -= dt;
       if (nextMeteor <= 0 && meteors.length < 5) {
         const speed = rand(520, 820);
-        const ang = rand(Math.PI * 0.72, Math.PI * 0.8);
+        const ang = rand(Math.PI * 0.72, Math.PI * 0.8); // ke kiri-bawah
         meteors.push({
           x: rand(W * 0.2, W * 1.1),
           y: rand(-60, H * 0.35),
@@ -158,7 +161,7 @@
           life: 0,
           max: rand(0.9, 1.6)
         });
-        nextMeteor = rand(0.6, 2.4);
+        nextMeteor = rand(0.6, 2.4); // jeda antar meteor (detik)
       }
       for (let i = meteors.length - 1; i >= 0; i--) {
         const m = meteors[i];
@@ -192,9 +195,13 @@
     ctx.fillStyle = g;
     ctx.fillRect(0, 0, W, H);
 
-    // Matahari
+    // Matahari (melintasi langit membentuk busur, ~65 detik)
     const sr = Math.max(34, Math.min(60, W * 0.05));
-    const sx = W * 0.85, sy = Math.max(100, H * 0.18);
+    const sp = (0.25 + time * 0.015) % 1;
+    const sx = W * (1.12 - 1.24 * sp);
+    const sy = Math.max(90, H * 0.3 - Math.sin(Math.PI * sp) * H * 0.2) + Math.sin(time * 0.7) * 3;
+    ctx.globalAlpha = Math.max(0, Math.min(1, sp / 0.08, (1 - sp) / 0.08));
+
     const glow = ctx.createRadialGradient(sx, sy, sr * 0.6, sx, sy, sr * 5);
     glow.addColorStop(0, 'rgba(253,224,71,0.55)');
     glow.addColorStop(1, 'rgba(253,224,71,0)');
@@ -223,6 +230,7 @@
     sg.addColorStop(1, '#f59e0b');
     ctx.fillStyle = sg;
     ctx.beginPath(); ctx.arc(sx, sy, sr, 0, Math.PI * 2); ctx.fill();
+    ctx.globalAlpha = 1;
 
     // Awan
     for (const c of clouds) {
@@ -257,7 +265,7 @@
         if (b.x > W + 60) birds[i] = newBird(false);
       }
       const y = b.y + Math.sin(b.bob) * b.bobAmp;
-      const f = Math.sin(b.phase);
+      const f = Math.sin(b.phase);          // -1..1
       const s = b.size;
       ctx.lineWidth = Math.max(1.5, s * 0.22);
       ctx.beginPath();
@@ -293,6 +301,7 @@
     if (document.hidden) cancelAnimationFrame(raf); else start();
   });
 
+  // Gambar ulang saat tema diganti (penting untuk mode reduced-motion)
   new MutationObserver(() => { if (reduceMotion) render(); })
     .observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
 
